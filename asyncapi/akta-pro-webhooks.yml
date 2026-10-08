@@ -1,0 +1,26 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/docs/supporting-apis/company-addition.md; https://docs.akta.pro/docs/supporting-apis/request-status-api.md
+description: 'The only documented event surface: status-change notifications for asynchronous Company Addition requests.
+  Docs: "akta.pro will send a POST request to your configured endpoint each time a request transitions status (e.g.
+  to completed or failed)."'
+delivery:
+  method: POST to a customer-configured endpoint
+  configuration_docs: https://docs.akta.pro/webhook-config
+  configuration_docs_status: 404 on 2026-10-07 (the docs link to /webhook-config from three pages, but the page
+    returns "Page Not Found")
+  signature_header: null
+  retries: null
+  payload_schema: null
+  note: No signature, retry or payload documentation is published; the configuration guide the docs link to is a
+    404.
+events:
+- name: addition_request.status_changed
+  description: Fires when a Company Addition request transitions status.
+  statuses:
+  - pending
+  - in_progress
+  - completed
+  - failed
+  correlates_with: request_id returned by createCompanyAdditionRequest; poll alternative getRequestStatus (GET /v1/status/{request_id})
+asyncapi: null

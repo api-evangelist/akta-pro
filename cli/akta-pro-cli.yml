@@ -1,0 +1,54 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/docs/developer-tools/cli/setup.md; https://docs.akta.pro/docs/developer-tools/cli/commands.md
+description: 'akta-pro-cli: "a command-line client for the akta.pro REST API. A sibling of the Akta MCP server.
+  Both are thin clients over the same endpoints; the CLI is the presentation layer for humans and shell scripts."'
+docs: https://docs.akta.pro/docs/developer-tools/cli/setup
+repo: https://github.com/Wokelo-AI/akta-pro-cli
+package: packages/akta-pro-packages.yml
+install:
+  pipx: pipx install akta-pro-cli
+  uv: uv tool install akta-pro-cli
+  pip: pip install akta-pro-cli
+auth:
+  command: akta-pro login --api-key wk_...
+  storage: ~/.config/akta/credentials.json (mode 0600; %APPDATA%\akta on Windows)
+  related:
+  - akta-pro whoami
+  - akta-pro logout
+commands:
+  account:
+  - akta-pro account
+  company:
+  - akta-pro company search <query>
+  - akta-pro company data <company> -s <section> ...
+  - akta-pro company concise <company>
+  industry:
+  - akta-pro industry search <query>
+  news:
+  - akta-pro news signals [--company|--industry|--query|--title] [-t <type-code>] [-n <limit>]
+  - akta-pro news detail <id>...
+  - akta-pro news types
+  alternative_signals:
+  - akta-pro headcount <company>
+  - akta-pro traffic <company>
+  - akta-pro jobs <company>
+  - akta-pro posts <company>
+  - akta-pro reviews employees <company>
+  - akta-pro reviews products <company> [--product-id <id>] [-n <limit>]
+flags:
+  --json: Clean, unstyled JSON on stdout; applied automatically when stdout is piped/redirected. For company data,
+    --json (alias --raw) emits the raw Markdown.
+  -o, --output FILE: Writes the raw JSON/text payload to a file.
+  -q, --quiet: Silences credits_consumed, which is otherwise printed to stderr.
+key_flows:
+  resolve_then_enrich:
+    command: akta-pro company search "Canva" && akta-pro company data canva.com -s firmographic -s technology
+    description: Resolve a name to a uuid first, then pull a section-by-section Markdown profile.
+  news_pipeline:
+    command: akta-pro news signals --query "crude oil prices" --json | jq '.data[].id'
+    description: Non-interactive JSON output piped to jq; follow with akta-pro news detail <id> for full bodies
+      (max 10).
+notes:
+- Alternative-signal commands require Subscription or Enterprise; Pay-as-you-go returns 403.
+- Repository lives in the parent company Wokelo-AI GitHub org (akta.pro is a product of Wokelo Inc. per its Terms).

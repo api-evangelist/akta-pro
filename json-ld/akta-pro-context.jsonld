@@ -1,0 +1,393 @@
+{
+  "@context": {
+    "@vocab": "https://akta.pro/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "akta": "https://akta.pro/schema#",
+    "NewsArticle": "akta:NewsArticle",
+    "title": {
+      "@id": "akta:title",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "akta:url",
+      "@type": "@id"
+    },
+    "publisher": {
+      "@id": "akta:publisher",
+      "@type": "xsd:string"
+    },
+    "published_date": {
+      "@id": "akta:published_date",
+      "@type": "xsd:string"
+    },
+    "sentiment": {
+      "@id": "akta:sentiment",
+      "@type": "xsd:string"
+    },
+    "news_score": {
+      "@id": "akta:news_score",
+      "@type": "xsd:decimal"
+    },
+    "ai_summary": {
+      "@id": "akta:ai_summary",
+      "@type": "xsd:string"
+    },
+    "full_text": {
+      "@id": "akta:full_text",
+      "@type": "xsd:string"
+    },
+    "original_language": {
+      "@id": "akta:original_language",
+      "@type": "xsd:string"
+    },
+    "author": {
+      "@id": "akta:author",
+      "@type": "xsd:string"
+    },
+    "countries": {
+      "@id": "akta:countries",
+      "@container": "@list"
+    },
+    "industries": {
+      "@id": "akta:industries",
+      "@container": "@list"
+    },
+    "types": {
+      "@id": "akta:types",
+      "@container": "@list"
+    },
+    "company_mentions": {
+      "@id": "akta:company_mentions",
+      "@container": "@list"
+    },
+    "Industry": "akta:Industry",
+    "name": {
+      "@id": "akta:name",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "akta:code",
+      "@type": "xsd:string"
+    },
+    "is_primary": {
+      "@id": "akta:is_primary",
+      "@type": "xsd:boolean"
+    },
+    "Tag": "akta:Tag",
+    "CompanyMention": "akta:CompanyMention",
+    "company_id": {
+      "@id": "akta:company_id",
+      "@type": "xsd:string"
+    },
+    "website": {
+      "@id": "akta:website",
+      "@type": "@id"
+    },
+    "CompanySearchResult": "akta:CompanySearchResult",
+    "uuid": {
+      "@id": "akta:uuid",
+      "@type": "xsd:string"
+    },
+    "product_category": {
+      "@id": "akta:product_category",
+      "@type": "xsd:string"
+    },
+    "company_status": {
+      "@id": "akta:company_status",
+      "@type": "xsd:string"
+    },
+    "IndustrySearchResult": "akta:IndustrySearchResult",
+    "industry_name": {
+      "@id": "akta:industry_name",
+      "@type": "xsd:string"
+    },
+    "similarity": {
+      "@id": "akta:similarity",
+      "@type": "xsd:decimal"
+    },
+    "ProductReview": "akta:ProductReview",
+    "id": {
+      "@id": "akta:id",
+      "@type": "xsd:string"
+    },
+    "product_name": {
+      "@id": "akta:product_name",
+      "@type": "xsd:string"
+    },
+    "main_category": {
+      "@id": "akta:main_category",
+      "@type": "xsd:string"
+    },
+    "categories": {
+      "@id": "akta:categories",
+      "@container": "@list"
+    },
+    "description": {
+      "@id": "akta:description",
+      "@type": "xsd:string"
+    },
+    "rating": {
+      "@id": "akta:rating"
+    },
+    "star_distribution": {
+      "@id": "akta:star_distribution"
+    },
+    "pros_list": {
+      "@id": "akta:pros_list",
+      "@container": "@list"
+    },
+    "cons_list": {
+      "@id": "akta:cons_list",
+      "@container": "@list"
+    },
+    "pricing": {
+      "@id": "akta:pricing",
+      "@container": "@list"
+    },
+    "reviews": {
+      "@id": "akta:reviews"
+    },
+    "ProductReviewItem": "akta:ProductReviewItem",
+    "review_id": {
+      "@id": "akta:review_id",
+      "@type": "xsd:integer"
+    },
+    "review_title": {
+      "@id": "akta:review_title",
+      "@type": "xsd:string"
+    },
+    "review_content": {
+      "@id": "akta:review_content",
+      "@type": "xsd:string"
+    },
+    "review_question_answers": {
+      "@id": "akta:review_question_answers",
+      "@container": "@list"
+    },
+    "review_rating": {
+      "@id": "akta:review_rating",
+      "@type": "xsd:decimal"
+    },
+    "publish_date": {
+      "@id": "akta:publish_date",
+      "@type": "xsd:string"
+    },
+    "reviewer_company_size": {
+      "@id": "akta:reviewer_company_size",
+      "@type": "xsd:string"
+    },
+    "review_link": {
+      "@id": "akta:review_link",
+      "@type": "xsd:string"
+    },
+    "provider": {
+      "@id": "akta:provider",
+      "@type": "xsd:string"
+    },
+    "EmployeeReview": "akta:EmployeeReview",
+    "employee_reviews": {
+      "@id": "akta:employee_reviews"
+    },
+    "EmployeeReviewItem": "akta:EmployeeReviewItem",
+    "summary": {
+      "@id": "akta:summary",
+      "@type": "xsd:string"
+    },
+    "pros": {
+      "@id": "akta:pros",
+      "@type": "xsd:string"
+    },
+    "cons": {
+      "@id": "akta:cons",
+      "@type": "xsd:string"
+    },
+    "job_title": {
+      "@id": "akta:job_title",
+      "@type": "xsd:string"
+    },
+    "review_date": {
+      "@id": "akta:review_date",
+      "@type": "xsd:string"
+    },
+    "employment_status": {
+      "@id": "akta:employment_status",
+      "@type": "xsd:string"
+    },
+    "is_current_employee": {
+      "@id": "akta:is_current_employee",
+      "@type": "xsd:boolean"
+    },
+    "years_of_employment": {
+      "@id": "akta:years_of_employment",
+      "@type": "xsd:integer"
+    },
+    "location": {
+      "@id": "akta:location",
+      "@type": "xsd:string"
+    },
+    "country_code": {
+      "@id": "akta:country_code",
+      "@type": "xsd:string"
+    },
+    "helpful_count": {
+      "@id": "akta:helpful_count",
+      "@type": "xsd:integer"
+    },
+    "not_helpful_count": {
+      "@id": "akta:not_helpful_count",
+      "@type": "xsd:integer"
+    },
+    "career_opportunities_rating": {
+      "@id": "akta:career_opportunities_rating",
+      "@type": "xsd:integer"
+    },
+    "ceo_rating": {
+      "@id": "akta:ceo_rating",
+      "@type": "xsd:string"
+    },
+    "compensation_and_benefits_rating": {
+      "@id": "akta:compensation_and_benefits_rating",
+      "@type": "xsd:integer"
+    },
+    "culture_and_values_rating": {
+      "@id": "akta:culture_and_values_rating",
+      "@type": "xsd:integer"
+    },
+    "diversity_and_inclusion_rating": {
+      "@id": "akta:diversity_and_inclusion_rating",
+      "@type": "xsd:integer"
+    },
+    "senior_management_rating": {
+      "@id": "akta:senior_management_rating",
+      "@type": "xsd:integer"
+    },
+    "work_life_balance_rating": {
+      "@id": "akta:work_life_balance_rating",
+      "@type": "xsd:integer"
+    },
+    "language": {
+      "@id": "akta:language",
+      "@type": "xsd:string"
+    },
+    "CompanyAdditionRequest": "akta:CompanyAdditionRequest",
+    "company_name": {
+      "@id": "akta:company_name",
+      "@type": "xsd:string"
+    },
+    "CompanyAdditionResponse": "akta:CompanyAdditionResponse",
+    "already_exists": {
+      "@id": "akta:already_exists",
+      "@type": "xsd:boolean"
+    },
+    "company": {
+      "@id": "akta:company"
+    },
+    "request_id": {
+      "@id": "akta:request_id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "akta:status",
+      "@type": "xsd:string"
+    },
+    "domain": {
+      "@id": "akta:domain",
+      "@type": "xsd:string"
+    },
+    "credits_consumed": {
+      "@id": "akta:credits_consumed",
+      "@type": "xsd:decimal"
+    },
+    "ExistingCompany": "akta:ExistingCompany",
+    "legal_name": {
+      "@id": "akta:legal_name",
+      "@type": "xsd:string"
+    },
+    "StatusResponse": "akta:StatusResponse",
+    "request_type": {
+      "@id": "akta:request_type",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "akta:created_at",
+      "@type": "xsd:string"
+    },
+    "updated_at": {
+      "@id": "akta:updated_at",
+      "@type": "xsd:string"
+    },
+    "detail": {
+      "@id": "akta:detail",
+      "@type": "@id"
+    },
+    "StatusDetail": "akta:StatusDetail",
+    "company_addition_request_id": {
+      "@id": "akta:company_addition_request_id",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "akta:reason",
+      "@type": "xsd:string"
+    },
+    "company_uuid": {
+      "@id": "akta:company_uuid",
+      "@type": "xsd:string"
+    },
+    "TranslateQueryRequest": "akta:TranslateQueryRequest",
+    "query": {
+      "@id": "akta:query",
+      "@type": "xsd:string"
+    },
+    "TranslateQueryResponse": "akta:TranslateQueryResponse",
+    "data": {
+      "@id": "akta:data"
+    },
+    "ListGenerationRequest": "akta:ListGenerationRequest",
+    "filters": {
+      "@id": "akta:filters"
+    },
+    "sections": {
+      "@id": "akta:sections",
+      "@container": "@list"
+    },
+    "sort_by": {
+      "@id": "akta:sort_by",
+      "@type": "xsd:string"
+    },
+    "sort_order": {
+      "@id": "akta:sort_order",
+      "@type": "xsd:string"
+    },
+    "limit": {
+      "@id": "akta:limit",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "akta:offset",
+      "@type": "xsd:integer"
+    },
+    "ListGenerationResponse": "akta:ListGenerationResponse",
+    "count": {
+      "@id": "akta:count",
+      "@type": "xsd:integer"
+    },
+    "total_count": {
+      "@id": "akta:total_count",
+      "@type": "xsd:integer"
+    },
+    "Error": "akta:Error",
+    "message": {
+      "@id": "akta:message",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "akta.pro API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects akta.pro's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-07) from openapi/akta-pro-openapi.yml.",
+  "dcterms:created": "2026-10-07",
+  "dcterms:source": [
+    "openapi/akta-pro-openapi.yml"
+  ]
+}

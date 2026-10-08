@@ -1,0 +1,138 @@
+generated: '2026-10-07'
+method: searched
+status: official
+source: https://docs.akta.pro/docs/developer-tools/mcp/setup.md; https://docs.akta.pro/docs/developer-tools/mcp/tools.md;
+  https://github.com/akta-pro/akta.pro-MCP (server.json); live probes of https://mcp.akta.pro/mcp on 2026-10-07
+description: 'Official remote MCP server for the akta.pro company-intelligence stack. The docs say: "akta.pro MCP
+  server can be installed in any MCP client with the server URL https://mcp.akta.pro/mcp". Listed in the official
+  MCP registry as io.github.akta-pro/akta.pro-MCP v1.0.1 (remotes: streamable-http). Announced in the changelog
+  on July 23, 2026.'
+server:
+  name: akta.pro MCP
+  transport: streamable-http
+  url: https://mcp.akta.pro/mcp
+  auth: oauth (authorization_code + PKCE S256, dynamic client registration) or x-api-key header
+  protected_resource: https://mcp.akta.pro/.well-known/oauth-protected-resource/mcp
+  authorization_server: https://mcp.akta.pro/.well-known/oauth-authorization-server
+  registry: https://registry.modelcontextprotocol.io/v0/servers?search=akta
+  repository: https://github.com/akta-pro/akta.pro-MCP
+deployment:
+  mode: remote
+  endpoint: https://mcp.akta.pro/mcp
+  auth: oauth
+  verified: probed
+  probe: 'POST tools/list and initialize on 2026-10-07 both returned 401 application/json {"error":"invalid_token"}
+    with WWW-Authenticate: Bearer resource_metadata="https://mcp.akta.pro/.well-known/oauth-protected-resource/mcp";
+    the live tool schemas are auth-gated and were NOT introspected.'
+  checked: '2026-10-07'
+  source: https://docs.akta.pro/docs/developer-tools/mcp/setup.md
+  api_key_alternative: Cursor, VS Code, Claude Code and OpenCode configs pass an x-api-key header instead of OAuth
+    (docs setup page).
+rfc9728:
+  endpoint: https://mcp.akta.pro/mcp
+  metadata_url: https://mcp.akta.pro/.well-known/oauth-protected-resource/mcp
+  discovered_via: WWW-Authenticate resource_metadata on the 401
+  fetched: '2026-10-07'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.akta.pro/mcp
+    authorization_servers:
+    - https://mcp.akta.pro/
+    scopes_supported: []
+    bearer_methods_supported:
+    - header
+  authorization_server_metadata:
+    issuer: https://mcp.akta.pro/
+    authorization_endpoint: https://mcp.akta.pro/authorize
+    token_endpoint: https://mcp.akta.pro/token
+    registration_endpoint: https://mcp.akta.pro/register
+    scopes_supported: []
+    response_types_supported:
+    - code
+    grant_types_supported:
+    - authorization_code
+    - refresh_token
+    token_endpoint_auth_methods_supported:
+    - client_secret_post
+    - client_secret_basic
+    code_challenge_methods_supported:
+    - S256
+    client_id_metadata_document_supported: true
+  saved:
+  - well-known/mcp.akta.pro-oauth-protected-resource-mcp.json
+  - well-known/mcp.akta.pro-oauth-authorization-server.json
+tools_source:
+  l3: table
+  evidence_url: https://docs.akta.pro/docs/developer-tools/mcp/tools.md
+  note: Tool names and descriptions are as PUBLISHED by the provider in its MCP Tools reference table; they were
+    not returned by a live tools/list (gated, 401). All tools are documented as synchronous; only company_data returns
+    Markdown, every other tool JSON. Alternative-signal tools return 403 on plans that do not cover them.
+tools:
+- name: company_search
+  description: Resolve a company name or website to Akta identifiers (uuid, website, status)
+  group: free
+- name: industry_search
+  description: Resolve a free-text industry or topic to ranked industry codes, used to filter news by industry
+  group: free
+- name: account_status
+  description: Your plan tier (is_enterprise, package_type) and remaining credit balance
+  group: free
+- name: list_filters
+  description: List the available filter fields for generate_company_list, grouped by filter category
+  group: free
+- name: get_filter_values
+  description: Get the allowed values for one or more filters, used to build a valid filters payload before calling
+    generate_company_list
+  group: free
+- name: company_data
+  description: Rich, structured company profile as Markdown. Sections are selected explicitly and billed individually
+  group: company data
+- name: company_data_concise
+  description: A single condensed company overview in JSON. No section selection, cheapest way to get a fast read
+  group: company data
+- name: news_signals
+  description: List news filtered by company, industry, query, or title, with sentiment and AI summaries. No full
+    article text
+  group: news
+- name: news_detail
+  description: Full article body for specific article IDs returned by news_signals (max 10 per call)
+  group: news
+- name: news_types
+  description: The news-type taxonomy. Contains 77 tag codes across 11 categories, used to filter news_signals by
+    kind of news
+  group: news
+- name: generate_company_list
+  description: Build a targeted list of companies using structured filters or a natural language query, with optional
+    per-company data enrichment
+  group: list generation
+- name: headcount_trends
+  description: Employee-count trend over time
+  group: alternative signals (Subscription/Enterprise)
+- name: website_traffic
+  description: Web-traffic estimates
+  group: alternative signals (Subscription/Enterprise)
+- name: employee_reviews
+  description: Glassdoor-style employee sentiment
+  group: alternative signals (Subscription/Enterprise)
+- name: product_reviews
+  description: Returns product-level review. Call without a product ID first to list the catalog
+  group: alternative signals (Subscription/Enterprise)
+- name: job_posts
+  description: Open roles and hiring signal
+  group: alternative signals (Subscription/Enterprise)
+- name: social_posts
+  description: Company social posts
+  group: alternative signals (Subscription/Enterprise)
+credits:
+  source: https://docs.akta.pro/docs/developer-tools/mcp/credits.md
+  free_tools:
+  - company_search
+  - industry_search
+  - account_status
+  - news_types
+  - list_filters
+  - get_filter_values
+  company_data_concise: 3 credits
+  news_signals: 0.1 per call, 0.01 per record
+  news_detail: 0.03 per record

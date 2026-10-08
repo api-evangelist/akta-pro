@@ -1,0 +1,325 @@
+openapi: 3.2.0
+info:
+  title: Akta Pro News API
+  version: 1.0.0
+  contact:
+    url: https://akta.pro
+  description: 'Operations tagged News across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.akta.pro/api
+  description: Production server
+tags:
+- name: News
+  description: Enriched news articles with AI summaries, sentiment, and company mentions
+paths:
+  /v1/news:
+    get:
+      tags:
+      - News
+      operationId: getNews
+      summary: News
+      description: 'Fetch enriched news articles for a company or industry. Each article includes AI-generated summary, full text, sentiment, event tags, industry classifications, and resolved company mentions.
+
+        Results are returned synchronously — no polling required.'
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Website (e.g. 'https://canva.com') or company UUID returned by the Company Search API.
+      - name: primary_company
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter to return only articles where the specified company is the primary company featured. Cannot be used with the `company` parameter.
+      - name: industry
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of industry codes to filter articles by. Use industry search endpoint to fetch the list of industry codes for a given industry topic.
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Topic name to search articles. Allows open-ended topic name. Eg. Crude oil price developments
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Searches articles based on the title entered.
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: Start of the date range, formatted as YYYY-MM-DD. Non-enterprise plans are limited to a 6-month lookback.
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: End of the date range, formatted as YYYY-MM-DD. Default = today.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+        description: Maximum number of news articles to return. Default = 10, Max = 100.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Number of results to skip before returning records. Use with limit for pagination.
+      - name: group_articles
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Accepts boolean. True will group similar articles from the same event.
+      - name: news_score_list
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - High
+          - Medium
+          - Low
+          - all
+        description: 'Filter by news score tier. Accepted values: High, Medium, Low, all. Default = all'
+      - name: countries
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters articles based on the country of the event. Comma separated list of ISO country codes.
+      - name: blacklisted
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of publisher domains to exclude.
+      - name: type_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by news type. Download full list from https://playground.akta.pro/news-tags.csv. Default = all.
+      - name: sentiment_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Comma-separated list of sentiments to filter by. Accepted values: positive, negative, neutral, all. Default = all. Example: sentiment_list=positive,negative'
+      - name: entity_person_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of people names.
+      - name: entity_location_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of locations.
+      - name: entity_product_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of product names.
+      - name: entity_event_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of event names.
+      - name: naics_code_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of NAICS codes.
+      - name: sic_code_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of SIC codes.
+      - name: iptc_code_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of IPTC codes.
+      - name: iab_code_list
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated list of IAB codes.
+      responses:
+        '200':
+          description: News articles returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  total:
+                    type: integer
+                    description: Total matching articles available.
+                  count:
+                    type: integer
+                    description: Number of articles returned in the data array.
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  credits_consumed:
+                    type: number
+                    format: float
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsArticle'
+        '204':
+          description: No content — no articles matched the query.
+        '400':
+          description: Bad request — invalid parameters.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+components:
+  schemas:
+    CompanyMention:
+      type: object
+      properties:
+        company_id:
+          type: string
+          format: uuid
+          description: Akta UUID for the company.
+        name:
+          type: string
+          description: Company display name.
+        website:
+          type: string
+          format: uri
+          description: Company website URL.
+        is_primary:
+          type: boolean
+          description: True if this is the main company the article is about.
+    NewsArticle:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Headline of the article.
+        url:
+          type: string
+          format: uri
+          description: Canonical URL of the original article.
+        publisher:
+          type: string
+          description: Name of the publishing outlet.
+        published_date:
+          type: string
+          description: Publication date in YYYY-MM-DD format.
+        sentiment:
+          type: string
+          enum:
+          - positive
+          - negative
+          - neutral
+          description: Article-level sentiment.
+        news_score:
+          type: number
+          format: float
+          description: Relevance and quality score between 0.0 and 1.0.
+        ai_summary:
+          type: string
+          description: AI-generated summary of the article.
+        full_text:
+          type: string
+          description: Complete body text of the article.
+        original_language:
+          type: string
+          description: ISO 639-1 language code.
+        author:
+          type: string
+          description: Article author name.
+        countries:
+          type: array
+          items:
+            type: string
+          description: Array of ISO 3166-1 alpha-2 country codes.
+        industries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Industry'
+          description: Industries associated with the article.
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: News types associated with the article.
+        company_mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyMention'
+          description: Companies mentioned in the article.
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable tag label.
+        code:
+          type: string
+          description: Machine-readable tag code.
+        is_primary:
+          type: boolean
+          description: True if this is the primary event tag.
+    Industry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Industry name.
+        code:
+          type: string
+          description: Machine-readable industry code.
+        is_primary:
+          type: boolean
+          description: True if this is the primary industry classification.
+  securitySchemes:
+    xApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key obtained from your Akta account.
+externalDocs:
+  description: Official Akta.pro API Documentation
+  url: https://docs.akta.pro
+x-refined-from:
+- akta-pro-docs-openapi.json
+- akta-pro-openapi.yml

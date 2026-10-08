@@ -1,0 +1,25 @@
+generated: '2026-10-07'
+method: probed
+source: live probes of akta.pro and docs.akta.pro on 2026-10-07 (fetch-url.py browser-equivalent GETs where the
+  edge challenged curl); security/akta-pro-domain-security.yml; apis.yml Terms/Privacy pointers
+signals: {}
+checked:
+- url: https://akta.pro/security
+  status: 404
+- url: https://akta.pro/legal/subprocessors
+  status: 404
+- url: https://akta.pro/accessibility
+  status: 404
+- url: https://akta.pro/trust
+  status: 404
+- url: https://akta.pro/.well-known/security.txt
+  status: 404
+- url: https://akta.pro/legal?tab=terms
+  status: 200
+  note: Terms & Conditions, last updated Sept 23, 2026; "akta.pro is a product of Wokelo Inc."; no subprocessor
+    list, DPA, accessibility conformance, SBOM, data-residency, transparency-report or support-lifetime statement
+    found on it.
+note: 'No horizontal-regulatory artifacts are published: no subprocessor list, DPA, VPAT/accessibility conformance,
+  SBOM, transparency report, data-residency statement, GPC statement, incident-notification commitment, age-assurance
+  or notice-and-action page was found. The marketing pricing page says AI model training is not permitted on Pay-as-you-go/Subscription
+  (a licence term, not a regulatory signal). Absence is the measurement.'

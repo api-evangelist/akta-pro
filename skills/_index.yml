@@ -1,0 +1,32 @@
+generated: '2026-10-07'
+method: generated
+source: Packaged Agent Skills generated from openapi/akta-pro-openapi.yml; every operationId verified verbatim in
+  the contract; cross-cutting rules cite conventions/, errors/, plans/ and rate-limits/. No provider-published skills
+  or AGENTS.md exist (docs.akta.pro/AGENTS.md is the unfilled Mintlify template).
+skills:
+- file: akta-pro-resolve-and-enrich-company.md
+  name: Resolve and enrich a company
+  api: openapi/akta-pro-openapi.yml
+  operations:
+  - companySearch
+  - companyEnrichment
+- file: akta-pro-monitor-company-news.md
+  name: Monitor company or industry news
+  api: openapi/akta-pro-openapi.yml
+  operations:
+  - companySearch
+  - industrySearch
+  - getNews
+- file: akta-pro-generate-company-list.md
+  name: Generate a targeted company list
+  api: openapi/akta-pro-openapi.yml
+  operations:
+  - translateQuery
+  - generateCompanyList
+- file: akta-pro-add-missing-company.md
+  name: Add a company that is missing
+  api: openapi/akta-pro-openapi.yml
+  operations:
+  - companySearch
+  - createCompanyAdditionRequest
+  - getRequestStatus

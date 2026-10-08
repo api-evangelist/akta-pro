@@ -1,23 +1,288 @@
 aid: akta-pro
-name: Akta
-description: 'Akta is a company surfaced via the API Evangelist harvest backlog (source: monid-connectors)
-  and added to the network as a stub for full-pipeline profiling.'
+name: akta.pro
+description: akta.pro (marketed as "akta.pro by Wokelo AI", a product of Wokelo Inc.) is a private-company data,
+  news and signals API built for AI agents, developers and enterprise teams. It covers 20M+ companies with 75+ data
+  points each (firmographics, business model, financial estimates, management, technology, funding and M&A), entity-resolved
+  and de-duplicated news classified against an 80+ event taxonomy plus NAICS, SIC, IPTC and IAB codes, list generation
+  from structured filters or natural language, and alternative signals (headcount trends, website traffic, job posts,
+  social posts, employee and product reviews). Access is credit-based and pay-as-you-go through a REST API (api.akta.pro),
+  a remote MCP server (mcp.akta.pro) and the akta-pro-cli on PyPI.
 url: https://raw.githubusercontent.com/api-evangelist/akta-pro/refs/heads/main/apis.yml
+image: https://akta.pro/opengraph-image?af85e82039d972ad
 x-type: company
 x-source: harvest:monid-connectors
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-07 (local-v5; was harvest)
 specificationVersion: '0.20'
 created: '2026-10-07'
 modified: '2026-10-07'
 tags:
 - Company
-apis: []
+- Company Data
+- Company Intelligence
+- News
+- Alternative Data
+- Private Companies
+- Firmographics
+- Data Enrichment
+- Signals
+- MCP
+- Market Intelligence
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/akta-pro-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/akta-pro-rate-limits.yml
+- type: Plans
+  url: plans/akta-pro-plans-pricing.yml
+- type: Spectral
+  url: rules/akta-pro-rules.yml
+- type: JSONLD
+  url: json-ld/akta-pro-context.jsonld
+- type: Vocabulary
+  url: vocabulary/akta-pro-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/akta-pro-webhooks.yml
+- type: DataModel
+  url: data-model/akta-pro-data-model.yml
+- type: CLI
+  url: cli/akta-pro-cli.yml
+- type: ChangeLog
+  url: changelog/akta-pro-changelog.yml
+- type: Conventions
+  url: conventions/akta-pro-conventions.yml
+- type: Deprecation
+  url: lifecycle/akta-pro-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/akta-pro-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/akta-pro-error-codes.yml
+- type: ErrorCatalog
+  url: errors/akta-pro-problem-types.yml
+- type: Conformance
+  url: conformance/akta-pro-conformance.yml
+- type: Overlay
+  url: overlays/akta-pro-openapi-overlay.yaml
+- type: LLMsTxt
+  url: llms/akta-pro-llms.txt
+- type: AgentCard
+  url: a2a/akta-pro-a2a.yml
+- type: ToolCrosswalk
+  url: mcp/akta-pro-tool-crosswalk.yml
+- type: MCPServer
+  url: mcp/akta-pro-mcp.yml
+- type: WellKnown
+  url: well-known/akta-pro-well-known.yml
+- type: Hosts
+  url: hosts/akta-pro-hosts.yml
+- type: Vendors
+  url: vendors/akta-pro-vendors.yml
+- type: SDKs
+  url: packages/akta-pro-packages.yml
+- type: Packages
+  url: packages/akta-pro-packages.yml
+- type: Authentication
+  url: authentication/akta-pro-authentication.yml
 - type: Website
   url: https://akta.pro
+- type: DeveloperPortal
+  url: https://playground.akta.pro/
+- type: Documentation
+  url: https://docs.akta.pro/home
+- type: APIReference
+  url: https://docs.akta.pro/api-reference/news-signals
+- type: GettingStarted
+  url: https://docs.akta.pro/getting-started/overview
+- type: ChangeLog
+  url: https://docs.akta.pro/changelog
+- type: Pricing
+  url: https://akta.pro/pricing
+- type: Blog
+  url: https://akta.pro/blog
+- type: Support
+  url: https://docs.akta.pro/contact
+- type: SignUp
+  url: https://playground.akta.pro/signup
+- type: GitHubOrganization
+  url: https://github.com/akta-pro
+- type: TermsOfService
+  url: https://akta.pro/legal?tab=terms
+- type: PrivacyPolicy
+  url: https://akta.pro/legal?tab=privacy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/akta-pro
+- type: Twitter
+  url: https://x.com/akta_pro
+- type: DomainSecurity
+  url: security/akta-pro-domain-security.yml
+apis:
+- name: akta.pro MCP Server
+  description: >-
+    Remote Streamable-HTTP MCP server (https://mcp.akta.pro/mcp) that exposes the akta.pro company-intelligence
+    stack to Claude, ChatGPT, Cursor, VS Code, Claude Code and other MCP clients: company and industry
+    search, structured company profiles, news signals and detail, list generation, and Subscription/Enterprise
+    alternative-signal tools. Authenticates by OAuth (RFC 9728 protected-resource metadata, dynamic client
+    registration) or an x-api-key header; listed in the official MCP registry as io.github.akta-pro/akta.pro-MCP.
+  humanURL: https://docs.akta.pro/docs/developer-tools/mcp/setup
+  baseURL: https://mcp.akta.pro/mcp
+  tags:
+  - MCP
+  - Agents
+  properties:
+  - type: Documentation
+    url: https://docs.akta.pro/docs/developer-tools/mcp/setup
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-MCP
+  aid: akta-pro:akta-pro-mcp-server
+- aid: akta-pro:akta-pro-company-api
+  name: akta.pro Company API
+  description: Company data enrichment, search, and addition
+  humanURL: https://docs.akta.pro/api-reference/news-signals
+  baseURL: https://api.akta.pro/api
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/akta-pro-company-api-openapi.yml
+  - type: Documentation
+    url: https://docs.akta.pro/getting-started/overview
+  - type: APIReference
+    url: https://docs.akta.pro/api-reference/news-signals
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-API
+  - type: JSONSchema
+    url: json-schema/akta-pro-product-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-news-article-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-list-generation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-employee-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-company-addition-response-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-status-response-schema.json
+- aid: akta-pro:akta-pro-list-generation-api
+  name: akta.pro List Generation API
+  description: Build targeted company lists using structured filters or natural language queries
+  humanURL: https://docs.akta.pro/api-reference/news-signals
+  baseURL: https://api.akta.pro/api
+  tags:
+  - List Generation
+  properties:
+  - type: OpenAPI
+    url: openapi/akta-pro-list-generation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.akta.pro/getting-started/overview
+  - type: APIReference
+    url: https://docs.akta.pro/api-reference/news-signals
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-API
+  - type: JSONSchema
+    url: json-schema/akta-pro-product-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-news-article-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-list-generation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-employee-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-company-addition-response-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-status-response-schema.json
+- aid: akta-pro:akta-pro-news-api
+  name: akta.pro News API
+  description: Enriched news articles with AI summaries, sentiment, and company mentions
+  humanURL: https://docs.akta.pro/api-reference/news-signals
+  baseURL: https://api.akta.pro/api
+  tags:
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/akta-pro-news-api-openapi.yml
+  - type: Documentation
+    url: https://docs.akta.pro/getting-started/overview
+  - type: APIReference
+    url: https://docs.akta.pro/api-reference/news-signals
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-API
+  - type: JSONSchema
+    url: json-schema/akta-pro-product-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-news-article-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-list-generation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-employee-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-company-addition-response-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-status-response-schema.json
+- aid: akta-pro:akta-pro-reviews-api
+  name: akta.pro Reviews API
+  description: Product and employee reviews from external sources
+  humanURL: https://docs.akta.pro/api-reference/news-signals
+  baseURL: https://api.akta.pro/api
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/akta-pro-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://docs.akta.pro/getting-started/overview
+  - type: APIReference
+    url: https://docs.akta.pro/api-reference/news-signals
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-API
+  - type: JSONSchema
+    url: json-schema/akta-pro-product-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-news-article-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-list-generation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-employee-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-company-addition-response-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-status-response-schema.json
+- aid: akta-pro:akta-pro-supporting-apis-api
+  name: akta.pro Supporting APIs API
+  description: Utility endpoints for request tracking
+  humanURL: https://docs.akta.pro/api-reference/news-signals
+  baseURL: https://api.akta.pro/api
+  tags:
+  - Supporting APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/akta-pro-supporting-apis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.akta.pro/getting-started/overview
+  - type: APIReference
+    url: https://docs.akta.pro/api-reference/news-signals
+  - type: SourceCode
+    url: https://github.com/akta-pro/akta.pro-API
+  - type: JSONSchema
+    url: json-schema/akta-pro-product-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-news-article-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-list-generation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-employee-review-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-company-addition-response-schema.json
+  - type: JSONSchema
+    url: json-schema/akta-pro-status-response-schema.json
+x-enrichment:
+  date: '2026-10-07'
+  status: enriched
+  artifacts_added: 31
+  pass: local-v5

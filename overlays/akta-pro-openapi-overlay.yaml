@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist overlay for the akta.pro API
+  version: 1.0.0
+extends: ../openapi/_original/akta-pro-openapi.yml
+x-generated: '2026-10-07'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      profile: https://apis.io/providers/akta-pro
+      pricing: https://docs.akta.pro/getting-started/pricing
+      rate_limits: https://docs.akta.pro/getting-started/rate-limits
+      error_codes: https://docs.akta.pro/getting-started/error-codes
+      changelog: https://docs.akta.pro/changelog
+      mcp_server: https://mcp.akta.pro/mcp
+      cli: pipx install akta-pro-cli
+- target: $.info
+  update:
+    termsOfService: https://akta.pro/legal?tab=terms
+- target: $.externalDocs
+  update:
+    url: https://docs.akta.pro/api-reference/news-signals
+    description: akta.pro API reference
+- target: $.paths['/v1/company/addition-requests'].post
+  update:
+    x-plan-availability: Subscription, Enterprise
+    x-async:
+      status_operation: getRequestStatus
+      webhook: documented, configuration guide 404
+- target: $.paths['/v1/list/generate/companies/'].post
+  update:
+    x-plan-availability: Subscription, Enterprise
+    x-credits: 1.5 base + 2.5 if query + 0.2 per company + section cost x companies
+- target: $.paths['/v1/news'].get
+  update:
+    x-credits: 0.1 per API call, 0.01 per news article

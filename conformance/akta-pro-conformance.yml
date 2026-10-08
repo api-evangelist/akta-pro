@@ -1,0 +1,82 @@
+generated: '2026-10-07'
+method: searched
+source: live probes of https://mcp.akta.pro on 2026-10-07; https://docs.akta.pro/docs/developer-tools/mcp/setup.md; openapi/akta-pro-openapi.yml;
+  https://registry.modelcontextprotocol.io/v0/servers?search=akta
+standards:
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: GET https://mcp.akta.pro/.well-known/oauth-protected-resource/mcp returned 200 application/json {"resource":"https://mcp.akta.pro/mcp","authorization_servers":["https://mcp.akta.pro/"],...};
+    the 401 on /mcp carries WWW-Authenticate resource_metadata pointing at it.
+  scope: MCP server
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: GET https://mcp.akta.pro/.well-known/oauth-authorization-server returned 200 with issuer, authorization_endpoint, token_endpoint,
+    registration_endpoint, grant_types authorization_code+refresh_token, code_challenge_methods_supported S256.
+  scope: MCP server
+- id: rfc7591
+  name: OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  evidence: registration_endpoint https://mcp.akta.pro/register in the authorization-server metadata; the 401 error_description says "Your client
+    should automatically re-register and obtain new tokens."
+  scope: MCP server
+- id: oauth2-pkce
+  name: OAuth 2.0 authorization code with PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"], response_types_supported ["code"] in https://mcp.akta.pro/.well-known/oauth-authorization-server
+  scope: MCP server
+- id: mcp
+  name: Model Context Protocol (Streamable HTTP)
+  conforms: true
+  evidence: server.json in https://github.com/akta-pro/akta.pro-MCP declares remotes[].type streamable-http at https://mcp.akta.pro/mcp against
+    schema 2025-12-11; listed active in the official MCP registry.
+- id: oidc
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: GET https://mcp.akta.pro/.well-known/openid-configuration returned 404.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: Error responses use a {status, message} JSON body (components.schemas.Error); no application/problem+json in the contract or the error-codes
+    page.
+- id: naics
+  name: NAICS industry classification
+  conforms: true
+  evidence: 'Declared at [''$.paths./v1/news.get.parameters[19].name'', ''$.paths./v1/news.get.parameters[19].description''] in openapi/akta-pro-openapi.yml;
+    changelog 2026-07-09: articles "classified across ... standard NAICS, SIC, IPTC, and IAB codes"; code list at https://docs.akta.pro/naics-codes'
+- id: sic
+  name: SIC industry classification
+  conforms: true
+  evidence: Declared at ['$.paths./v1/news.get.parameters[20].name'] in openapi/akta-pro-openapi.yml; code list at https://docs.akta.pro/sic-codes
+- id: iptc-media-topics
+  name: IPTC Media Topics
+  conforms: true
+  evidence: Declared at ['$.paths./v1/news.get.parameters[21].name', '$.paths./v1/news.get.parameters[21].description'] in openapi/akta-pro-openapi.yml;
+    code list at https://docs.akta.pro/iptc-codes
+- id: iab-content-taxonomy
+  name: IAB Content Taxonomy
+  conforms: true
+  evidence: Declared at ['$.paths./v1/news.get.parameters[22].name', '$.paths./v1/news.get.parameters[22].description'] in openapi/akta-pro-openapi.yml;
+    code list at https://docs.akta.pro/iab-codes
+- id: iso-3166
+  name: ISO 3166 country codes
+  conforms: true
+  evidence: 'Docs reference "ISO Country Codes: List of all 3 letter ISO country codes" at https://docs.akta.pro/country-codes; getNews takes
+    a countries parameter.'
+- id: un-m49
+  name: UN M49 region codes
+  conforms: true
+  evidence: Docs reference "M49 Region Codes" at https://docs.akta.pro/region-codes
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.3
+- id: oauth2
+  conforms: false
+  evidence: 'securitySchemes: xApiKeyAuth (apiKey)'
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations
+- id: pagination
+  conforms: true
+  evidence: list operations take limit, offset

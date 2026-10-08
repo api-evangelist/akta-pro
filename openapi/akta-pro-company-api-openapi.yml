@@ -1,0 +1,524 @@
+openapi: 3.2.0
+info:
+  title: Akta Pro Company API
+  version: 1.0.0
+  contact:
+    url: https://akta.pro
+  description: 'Operations tagged Company across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.akta.pro/api
+  description: Production server
+tags:
+- name: Company
+  description: Company data enrichment, search, and addition
+paths:
+  /v1/company/search:
+    get:
+      tags:
+      - Company
+      operationId: companySearch
+      summary: Company Search
+      description: 'Resolve a company name, website domain, or UUID into a structured company record.
+
+        This is a free endpoint — it does not consume API credits.'
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'A company name, website. The backend automatically resolves the input type. Examples: https://canva.com, canva'
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CompanySearchResult'
+                  credits_consumed:
+                    type: number
+                    format: float
+                    example: 0
+        '204':
+          description: No content — no companies matched the query.
+        '400':
+          description: Bad request — missing or malformed query parameter.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/enrichment:
+    get:
+      tags:
+      - Company
+      operationId: companyEnrichment
+      summary: Company Enrichment
+      description: 'Retrieve structured company data — firmographics, funding, headcount, web traffic, business model, and financials.
+
+        Specify which sections you need; only requested sections are returned.'
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Company website (e.g. 'https://canva.com') or a company UUID (e.g. '00031n-tesla'). The UUID can be obtained from the Company Search API.
+      - name: sections
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Comma-separated list of sections to return. Copy-paste example: `firmographic,business_model,company_assessment,trust_signal,company_hierarchy,digital_presence,financial_estimate,location,management_profile,product_offering,strategic_signal,customer_profile,industry,technology,funding_detail,mna_and_investment`. Note: `funding_detail` and `mna_and_investment` are available on the subscription and Enterprise tier only.'
+      responses:
+        '200':
+          description: Enrichment data returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    description: Enriched company data keyed by section name.
+                  count:
+                    type: integer
+                    description: Number of sections returned.
+                  credits_consumed:
+                    type: number
+                    format: float
+        '400':
+          description: Bad request — invalid company identifier.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — insufficient access for requested section.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/industry/search:
+    get:
+      tags:
+      - Company
+      operationId: industrySearch
+      summary: Industry Search
+      description: 'Resolves an industry from a free-text query and returns matching industry codes ranked by similarity.
+
+        This is a free endpoint — it does not consume API credits.'
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'Free-text industry name or topic to search for. Example: ''warehouse automation'''
+      - name: level
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Restrict results to one or more levels of the industry taxonomy hierarchy. Accepts a single level or a comma-separated list of multiple levels. Available values: l1, l2, l3, l4, all. Default is l4.'
+      responses:
+        '200':
+          description: Industry search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IndustrySearchResult'
+                  count:
+                    type: integer
+                    description: Number of industry objects returned in the data array.
+                  credits_consumed:
+                    type: number
+                    format: float
+                    example: 0
+        '204':
+          description: No content — no industries matched the query.
+        '400':
+          description: Bad request — missing or malformed query parameter.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/headcount-trends:
+    get:
+      tags:
+      - Company
+      operationId: getHeadcountTrends
+      summary: Headcount Trends
+      description: Fetches a company's LinkedIn-sourced headcount data, including total employee count, historical growth trends, and a functional breakdown of the workforce.
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Company website (e.g. 'canva.com') or a company UUID. The UUID can be obtained from the Company Search API.
+      responses:
+        '200':
+          description: Headcount trends data returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      uuid:
+                        type: string
+                      linkedin_username:
+                        type: string
+                      linkedin_official_name:
+                        type: string
+                      total_employees:
+                        type: integer
+                      date:
+                        type: string
+                      growth_periods:
+                        type: array
+                        items:
+                          type: string
+                      headcount_growth:
+                        type: array
+                        items:
+                          type: object
+                      headcount_by_function:
+                        type: array
+                        items:
+                          type: object
+                  credits_consumed:
+                    type: number
+                    format: float
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/jobs:
+    get:
+      tags:
+      - Company
+      operationId: getJobPosts
+      summary: Job Posts
+      description: Fetches live LinkedIn and Indeed job listings for a company, including title, location, description, compensation, experience level, and extracted key skills.
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Company website (e.g. 'canva.com') or a company UUID. The UUID can be obtained from the Company Search API.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+        description: Maximum number of job listings to return.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Number of listings to skip before returning records.
+      responses:
+        '200':
+          description: Job posts returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  count:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  credits_consumed:
+                    type: number
+                    format: float
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/posts:
+    get:
+      tags:
+      - Company
+      operationId: getSocialPosts
+      summary: Social Posts
+      description: Fetches social media posts published by a company, including content type, text, publish date, paid/repost flags, an AI classification, and detailed engagement metrics.
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Company website (e.g. 'canva.com') or a company UUID. The UUID can be obtained from the Company Search API.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+        description: Maximum number of posts to return.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Number of posts to skip before returning records.
+      responses:
+        '200':
+          description: Social posts returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  count:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  credits_consumed:
+                    type: number
+                    format: float
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/website-traffic:
+    get:
+      tags:
+      - Company
+      operationId: getWebsiteTraffic
+      summary: Website Traffic
+      description: Fetches a company's website traffic signals, including engagement metrics, historical monthly visit estimates, and a breakdown of traffic by acquisition source.
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Company website (e.g. 'canva.com') or a company UUID. The UUID can be obtained from the Company Search API.
+      responses:
+        '200':
+          description: Website traffic data returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      uuid:
+                        type: string
+                      engagements:
+                        type: object
+                      estimated_monthly_visits:
+                        type: object
+                      traffic_sources:
+                        type: object
+                  credits_consumed:
+                    type: number
+                    format: float
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+  /v1/company/addition-requests:
+    post:
+      tags:
+      - Company
+      operationId: createCompanyAdditionRequest
+      summary: Company Addition
+      description: 'Submits a company that is not yet in akta.pro''s database to be added, returning a request ID to track, or the existing company if it is already present.
+
+        This is a free endpoint — it does not consume API credits.'
+      security:
+      - xApiKeyAuth: []
+      requestBody:
+        description: Company addition request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyAdditionRequest'
+        required: true
+      responses:
+        '200':
+          description: Company addition response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: '#/components/schemas/CompanyAdditionResponse'
+                  credits_consumed:
+                    type: number
+                    format: float
+                    example: 0
+        '400':
+          description: Bad request — invalid parameters.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+components:
+  schemas:
+    IndustrySearchResult:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique industry code.
+        industry_name:
+          type: string
+          description: Full name of the industry.
+        similarity:
+          type: number
+          format: float
+          description: Similarity score between the query and the matched industry, ranging from 0 to 1. Higher values indicate a closer match.
+    CompanyAdditionRequest:
+      required:
+      - company_name
+      - website
+      type: object
+      properties:
+        company_name:
+          description: 'Name of the company to add. Example: solios'
+          type: string
+        website:
+          description: 'Primary website URL of the company. Used to disambiguate and resolve the company. Example: https://www.soleosenergy.com/'
+          type: string
+    ExistingCompany:
+      type: object
+      properties:
+        uuid:
+          description: Unique identifier for the company. Pass this as the company parameter in downstream APIs.
+          type: string
+        website:
+          description: Primary website of the company.
+          type: string
+        domain:
+          description: Resolved domain of the company.
+          type: string
+        name:
+          description: Company name.
+          type: string
+        legal_name:
+          description: Legal or registered name of the company.
+          type: string
+    CompanySearchResult:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique Akta identifier for the company.
+        name:
+          type: string
+          description: Legal or registered company name.
+        website:
+          type: string
+          format: uri
+          description: Primary website URL.
+        product_category:
+          type: string
+          description: Primary product or service category.
+        company_status:
+          type: string
+          enum:
+          - public
+          - private
+          - acquired
+          - delisted
+          - unknown
+          description: Public market status.
+    CompanyAdditionResponse:
+      type: object
+      properties:
+        already_exists:
+          description: true if the company is already in the database, in which case no addition request is created. false if a new addition request was created.
+          type: boolean
+        company:
+          description: The existing company's details when already_exists is true; otherwise null.
+          allOf:
+          - $ref: '#/components/schemas/ExistingCompany'
+        request_id:
+          description: Unique identifier for the addition request, in UUID format. Use this to check request status or match webhook notifications. null when the company already exists.
+          type:
+          - string
+          - 'null'
+        status:
+          description: Current status of the addition request at submission time. Typically pending. null when the company already exists.
+          type:
+          - string
+          - 'null'
+        domain:
+          description: The resolved domain for the submitted company.
+          type: string
+        credits_consumed:
+          description: Credits consumed by the request. This endpoint is free and always returns 0.00.
+          type: number
+  securitySchemes:
+    xApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key obtained from your Akta account.
+externalDocs:
+  description: Official Akta.pro API Documentation
+  url: https://docs.akta.pro
+x-refined-from:
+- akta-pro-docs-openapi.json
+- akta-pro-openapi.yml

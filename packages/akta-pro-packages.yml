@@ -1,0 +1,30 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/docs/developer-tools/cli/setup.md; https://pypi.org/pypi/akta-pro-cli/json; https://registry.modelcontextprotocol.io/v0/servers?search=akta
+description: First-party client distributions. akta-pro-cli is the official Python CLI (repo under the parent company
+  Wokelo-AI org; PyPI metadata names Homepage https://akta.pro/). The MCP server is remote-only and is listed in
+  the official MCP registry rather than shipped as an installable package. No npm, Maven, NuGet, Go, RubyGems, Packagist
+  or crates.io packages were found (registry.npmjs.org/akta-pro-cli and @akta-pro/mcp both 404).
+packages:
+- name: akta-pro-cli
+  registry: pypi
+  url: https://pypi.org/project/akta-pro-cli/
+  language: python
+  official: true
+  version: 0.7.0
+  published: '2026-10-06'
+  install: pipx install akta-pro-cli
+  license: MIT
+  repository: https://github.com/Wokelo-AI/akta-pro-cli
+  note: 'Docs: "The akta-pro-cli is a command-line client for the akta.pro REST API. A sibling of the Akta MCP server."
+    Repository sits in the parent company Wokelo-AI GitHub org; the akta.pro Terms state "akta.pro is a product
+    of Wokelo Inc." 5 releases on PyPI.'
+- name: io.github.akta-pro/akta.pro-MCP
+  registry: modelcontextprotocol-registry
+  url: https://registry.modelcontextprotocol.io/v0/servers?search=akta
+  language: n/a
+  official: true
+  version: 1.0.1
+  published: '2026-09-22'
+  note: 'Official MCP registry listing (status active, statusChangedAt 2026-09-22) backed by https://github.com/akta-pro/akta.pro-MCP/blob/HEAD/server.json;
+    remotes[] = streamable-http https://mcp.akta.pro/mcp. Remote-only: no local package to install.'

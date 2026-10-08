@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/akta-pro/main/json-schema/akta-pro-news-article-schema.json",
+  "title": "NewsArticle",
+  "x-generated": "2026-10-07",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/akta-pro-openapi.yml#/components/schemas/NewsArticle",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Headline of the article."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL of the original article."
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Name of the publishing outlet."
+    },
+    "published_date": {
+      "type": "string",
+      "description": "Publication date in YYYY-MM-DD format."
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "negative",
+        "neutral"
+      ],
+      "description": "Article-level sentiment."
+    },
+    "news_score": {
+      "type": "number",
+      "format": "float",
+      "description": "Relevance and quality score between 0.0 and 1.0."
+    },
+    "ai_summary": {
+      "type": "string",
+      "description": "AI-generated summary of the article."
+    },
+    "full_text": {
+      "type": "string",
+      "description": "Complete body text of the article."
+    },
+    "original_language": {
+      "type": "string",
+      "description": "ISO 639-1 language code."
+    },
+    "author": {
+      "type": "string",
+      "description": "Article author name."
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of ISO 3166-1 alpha-2 country codes."
+    },
+    "industries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Industry"
+      },
+      "description": "Industries associated with the article."
+    },
+    "types": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      },
+      "description": "News types associated with the article."
+    },
+    "company_mentions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CompanyMention"
+      },
+      "description": "Companies mentioned in the article."
+    }
+  },
+  "$defs": {
+    "CompanyMention": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Akta UUID for the company."
+        },
+        "name": {
+          "type": "string",
+          "description": "Company display name."
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Company website URL."
+        },
+        "is_primary": {
+          "type": "boolean",
+          "description": "True if this is the main company the article is about."
+        }
+      }
+    },
+    "Industry": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Industry name."
+        },
+        "code": {
+          "type": "string",
+          "description": "Machine-readable industry code."
+        },
+        "is_primary": {
+          "type": "boolean",
+          "description": "True if this is the primary industry classification."
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable tag label."
+        },
+        "code": {
+          "type": "string",
+          "description": "Machine-readable tag code."
+        },
+        "is_primary": {
+          "type": "boolean",
+          "description": "True if this is the primary event tag."
+        }
+      }
+    }
+  }
+}

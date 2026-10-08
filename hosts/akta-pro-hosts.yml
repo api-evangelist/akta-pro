@@ -1,0 +1,133 @@
+generated: '2026-10-07'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 5
+  other_domain: 1
+  platform: 3
+  roles:
+  - api
+  - docs
+  - other
+  - portal
+  - source
+  - website
+hosts:
+- host: akta.pro
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - Pricing
+  - Blog
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - cdn
+  vendor: cloudflare
+  registrable_domain: akta.pro
+  role: website
+  relation: own
+- host: api.akta.pro
+  found_by:
+  - apis[]
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: akta.pro
+  role: api
+  relation: own
+- host: docs.akta.pro
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - spec-found
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - ChangeLog
+  - Support
+  serves:
+  - docs
+  - spec
+  - hosting
+  vendor: vercel
+  registrable_domain: akta.pro
+  role: docs
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: mcp.akta.pro
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: akta.pro
+  role: other
+  relation: own
+- host: mintlify.com
+  found_by:
+  - docs-index
+  types: []
+  serves:
+  - docs
+  registrable_domain: mintlify.com
+  role: other
+  relation: other-domain
+- host: playground.akta.pro
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - DeveloperPortal
+  - SignUp
+  serves: []
+  registrable_domain: akta.pro
+  role: portal
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - Twitter
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform

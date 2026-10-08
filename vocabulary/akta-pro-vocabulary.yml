@@ -1,0 +1,139 @@
+generated: '2026-10-07'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/akta-pro-openapi.yml
+vocabulary:
+  name: akta.pro Domain Vocabulary
+  description: 'Terms declared by akta.pro''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-07'
+  terms:
+  - term: News
+    definition: Enriched news articles with AI summaries, sentiment, and company mentions
+    tags:
+    - Resource Group
+    source: openapi/akta-pro-openapi.yml
+  - term: Company
+    definition: Company data enrichment, search, and addition
+    tags:
+    - Resource Group
+    source: openapi/akta-pro-openapi.yml
+  - term: Reviews
+    definition: Product and employee reviews from external sources
+    tags:
+    - Resource Group
+    source: openapi/akta-pro-openapi.yml
+  - term: Supporting APIs
+    definition: Utility endpoints for request tracking
+    tags:
+    - Resource Group
+    source: openapi/akta-pro-openapi.yml
+  - term: List Generation
+    definition: Build targeted company lists using structured filters or natural language queries
+    tags:
+    - Resource Group
+    source: openapi/akta-pro-openapi.yml
+  - term: NewsArticle
+    definition: 'Object declared by the contract with fields: title, url, publisher, published_date, sentiment, news_score, ai_summary, full_text,
+      original_language, author, countries, industries. (2 more)'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/NewsArticle
+  - term: Industry
+    definition: 'Object declared by the contract with fields: name, code, is_primary.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/Industry
+  - term: Tag
+    definition: 'Object declared by the contract with fields: name, code, is_primary.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/Tag
+  - term: CompanyMention
+    definition: 'Object declared by the contract with fields: company_id, name, website, is_primary.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/CompanyMention
+  - term: CompanySearchResult
+    definition: 'Object declared by the contract with fields: uuid, name, website, product_category, company_status.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/CompanySearchResult
+  - term: IndustrySearchResult
+    definition: 'Object declared by the contract with fields: code, industry_name, similarity.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/IndustrySearchResult
+  - term: ProductReview
+    definition: 'Object declared by the contract with fields: id, product_name, main_category, categories, description, rating, star_distribution,
+      pros_list, cons_list, pricing, reviews.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/ProductReview
+  - term: ProductReviewItem
+    definition: 'Object declared by the contract with fields: review_id, review_title, review_content, review_question_answers, review_rating,
+      publish_date, reviewer_company_size, review_link, provider.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/ProductReviewItem
+  - term: EmployeeReview
+    definition: 'Object declared by the contract with fields: uuid, employee_reviews.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/EmployeeReview
+  - term: EmployeeReviewItem
+    definition: 'Object declared by the contract with fields: id, summary, pros, cons, rating, review_link, job_title, review_date, employment_status,
+      is_current_employee, years_of_employment, location. (12 more)'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/EmployeeReviewItem
+  - term: CompanyAdditionRequest
+    definition: 'Object declared by the contract with fields: company_name, website.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/CompanyAdditionRequest
+  - term: CompanyAdditionResponse
+    definition: 'Object declared by the contract with fields: already_exists, company, request_id, status, domain, credits_consumed.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/CompanyAdditionResponse
+  - term: ExistingCompany
+    definition: 'Object declared by the contract with fields: uuid, website, domain, name, legal_name.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/ExistingCompany
+  - term: StatusResponse
+    definition: 'Object declared by the contract with fields: request_id, request_type, status, created_at, updated_at, detail.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/StatusResponse
+  - term: StatusDetail
+    definition: Request-type-specific details for company_addition request.
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/StatusDetail
+  - term: TranslateQueryRequest
+    definition: 'Object declared by the contract with fields: query.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/TranslateQueryRequest
+  - term: TranslateQueryResponse
+    definition: 'Object declared by the contract with fields: data, credits_consumed.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/TranslateQueryResponse
+  - term: ListGenerationRequest
+    definition: 'Object declared by the contract with fields: query, filters, sections, sort_by, sort_order, limit, offset.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/ListGenerationRequest
+  - term: ListGenerationResponse
+    definition: 'Object declared by the contract with fields: data, count, total_count, credits_consumed.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/ListGenerationResponse
+  - term: Error
+    definition: 'Object declared by the contract with fields: status, message.'
+    tags:
+    - Object
+    source: openapi/akta-pro-openapi.yml#/components/schemas/Error

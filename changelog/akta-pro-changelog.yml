@@ -1,0 +1,60 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/changelog.md
+docs: https://docs.akta.pro/changelog
+description: Dated product changelog ("New features, enhancements, and updates to the akta.pro API"). Entries are
+  labelled by date and product, not by version number.
+versioning:
+  scheme: dated entries; API versioned by URL path /api/v1/
+  current: v1
+entries:
+- version: '2026-08-20'
+  date: '2026-08-20'
+  product: List Generation API
+  title: List Generation API is now available
+  breaking: false
+  highlights:
+  - Build targeted company lists from a natural language query or structured filters across firmographics, business
+    model, financials, location, technology and funding
+  - Results can be enriched with any Company Data section and sorted by revenue, valuation, headcount, total funding
+    or founded year
+  - Subscription and Enterprise plans
+- version: '2026-07-30'
+  date: '2026-07-30'
+  product: Company Addition API
+  title: Add companies missing from akta.pro with the Company Addition API
+  breaking: false
+  highlights:
+  - Submit a company name and website; returns existing details immediately or creates an addition request
+  - Track via the Request Status API or a webhook
+  - Free, asynchronous; Subscription and Enterprise plans
+- version: '2026-07-23'
+  date: '2026-07-23'
+  product: MCP Server & CLI
+  title: akta.pro is now available as an MCP server and a terminal CLI
+  breaking: false
+  highlights:
+  - Remote MCP server at https://mcp.akta.pro/mcp for Claude, ChatGPT, Cursor, VS Code, Claude Code
+  - akta-pro-cli installs with pipx, uv or pip
+  - Both call the same underlying REST API
+- version: '2026-07-16'
+  date: '2026-07-16'
+  product: Company Data API
+  title: Expanded sections and enterprise data in the Company Data API
+  breaking: false
+  highlights:
+  - 16 sections including firmographics, business model, financial estimates, management profiles, technology and
+    AI capabilities
+  - Request only the sections you need to manage credit consumption
+  - Enterprise gains funding details and M&A and investment history
+- version: '2026-07-09'
+  date: '2026-07-09'
+  product: News API
+  title: Improved search, entities, and taxonomies in akta.pro News API
+  breaking: true
+  highlights:
+  - Open-ended query searches without anchoring to a company or industry
+  - Resolved entities (person, location, product, event) filterable directly
+  - Classification across akta.pro taxonomies plus NAICS, SIC, IPTC and IAB codes
+  - Event-level deduplication via group_articles; relevance and sentiment filtering
+  - 'BREAKING: the industry parameter now expects resolved codes instead of free text'

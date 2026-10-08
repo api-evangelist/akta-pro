@@ -1,0 +1,122 @@
+openapi: 3.2.0
+info:
+  title: Akta Pro Supporting APIs API
+  version: 1.0.0
+  contact:
+    url: https://akta.pro
+  description: 'Operations tagged Supporting APIs across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.akta.pro/api
+  description: Production server
+tags:
+- name: Supporting APIs
+  description: Utility endpoints for request tracking
+paths:
+  /v1/status/{request_id}:
+    get:
+      tags:
+      - Supporting APIs
+      operationId: getRequestStatus
+      summary: Request Status
+      description: 'Returns the current status of an asynchronous request, such as a company addition request, by its request ID.
+
+        This is a free endpoint — it does not consume API credits.'
+      security:
+      - xApiKeyAuth: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The unique identifier of the request to check, returned when the original request was submitted. Example: 2db01b38-5c81-4b3f-b76d-8b36aeed603b'
+      responses:
+        '200':
+          description: Status response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: '#/components/schemas/StatusResponse'
+                  credits_consumed:
+                    type: number
+                    format: float
+                    example: 0
+        '400':
+          description: Bad request — invalid request ID.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+    servers:
+    - url: https://api.akta.pro/api
+      description: Production server
+components:
+  schemas:
+    StatusResponse:
+      type: object
+      properties:
+        request_id:
+          description: Unique identifier of the request being tracked.
+          type: string
+        request_type:
+          description: 'The type of request. Example: company_addition'
+          type: string
+        status:
+          description: 'Current status of the request. Possible values: pending, in_progress, completed, failed.'
+          type: string
+        created_at:
+          description: Timestamp when the request was created, in ISO 8601 format.
+          type: string
+        updated_at:
+          description: Timestamp when the request was last updated, in ISO 8601 format.
+          type: string
+        detail:
+          $ref: '#/components/schemas/StatusDetail'
+    StatusDetail:
+      description: Request-type-specific details for company_addition request.
+      type: object
+      properties:
+        company_addition_request_id:
+          description: Identifier of the underlying request record.
+          type: string
+        company_name:
+          description: Name of the company submitted for addition.
+          type: string
+        domain:
+          description: Resolved domain of the submitted company.
+          type: string
+        status:
+          description: 'Status of the underlying request. Possible values: pending, in_progress, completed, failed.'
+          type: string
+        reason:
+          description: Explanation when the request did not succeed. null unless the request has failed.
+          type:
+          - string
+          - 'null'
+        company_uuid:
+          description: Akta UUID of the company once it has been added. null until the request is completed.
+          type:
+          - string
+          - 'null'
+        created_at:
+          description: Timestamp when the underlying request was created, in ISO 8601 format.
+          type: string
+        updated_at:
+          description: Timestamp when the underlying request was last updated, in ISO 8601 format.
+          type: string
+  securitySchemes:
+    xApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key obtained from your Akta account.
+externalDocs:
+  description: Official Akta.pro API Documentation
+  url: https://docs.akta.pro
+x-refined-from:
+- akta-pro-docs-openapi.json
+- akta-pro-openapi.yml

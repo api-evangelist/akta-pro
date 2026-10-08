@@ -1,0 +1,44 @@
+generated: '2026-10-07'
+method: searched
+source: openapi/akta-pro-openapi.yml; https://docs.akta.pro/getting-started/overview.md; https://docs.akta.pro/docs/developer-tools/mcp/setup.md;
+  https://mcp.akta.pro/.well-known/oauth-authorization-server
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  note: 'REST API: x-api-key only. MCP server: OAuth 2.1 (authorization code + PKCE, DCR, no scopes published) or
+    x-api-key header.'
+schemes:
+- name: xApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API key obtained from your Akta account.
+  sources:
+  - openapi/akta-pro-openapi.yml
+  docs: https://docs.akta.pro/getting-started/overview
+  key_prefix: wk_
+  key_management: Generate in the Playground (https://playground.akta.pro/dashboard/manage/api-keys); "The API key
+    is shown once."
+  example: 'curl -G "https://api.akta.pro/api/v1/company/search/?query=canva" -H "x-api-key: YOUR_API_KEY"'
+  unauthenticated_response: 401 application/json (probed 2026-10-07)
+- name: mcpOAuth
+  type: oauth2
+  scope: MCP server https://mcp.akta.pro/mcp only
+  flows:
+    authorizationCode:
+      authorizationUrl: https://mcp.akta.pro/authorize
+      tokenUrl: https://mcp.akta.pro/token
+      refreshUrl: https://mcp.akta.pro/token
+      scopes: {}
+  pkce: S256
+  dynamic_client_registration: https://mcp.akta.pro/register
+  protected_resource_metadata: https://mcp.akta.pro/.well-known/oauth-protected-resource/mcp
+  alternative: x-api-key header on the MCP request (Cursor / VS Code / Claude Code / OpenCode configs in the setup
+    docs)
+  sources:
+  - https://mcp.akta.pro/.well-known/oauth-authorization-server
+  - https://docs.akta.pro/docs/developer-tools/mcp/setup.md
+docs: https://docs.akta.pro/getting-started/overview

@@ -1,0 +1,121 @@
+generated: '2026-10-07'
+method: derived
+source: mcp/akta-pro-mcp.yml (documented tool table) x openapi/akta-pro-openapi.yml (14 operations); live MCP tools/list
+  is OAuth-gated (401) so bindings are by name/semantics
+surfaces:
+  openapi:
+    path: openapi/akta-pro-openapi.yml
+    operations: 14
+    gated: false
+  graphql: null
+  mcp:
+    url: https://mcp.akta.pro/mcp
+    gated: true
+    gate: 401 invalid_token; OAuth or x-api-key required
+crosswalk:
+- tool: company_search
+  category: resolve
+  rest:
+  - companySearch
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+  note: Same /v1/company/search query semantics; docs call it a resolve-first tool.
+- tool: industry_search
+  category: resolve
+  rest:
+  - industrySearch
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: company_data
+  category: company data
+  rest:
+  - companyEnrichment
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+  note: Section selection maps to the sections query parameter; billed per section.
+- tool: company_data_concise
+  category: company data
+  rest:
+  - companyEnrichment
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: medium
+  note: 'Rate-limits page: the enrichment limit "includes the markdown and concise response variants of this endpoint";
+    the concise variant is not a separate operation in the spec.'
+- tool: news_signals
+  category: news
+  rest:
+  - getNews
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: generate_company_list
+  category: list generation
+  rest:
+  - generateCompanyList
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: headcount_trends
+  category: alternative signals
+  rest:
+  - getHeadcountTrends
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: website_traffic
+  category: alternative signals
+  rest:
+  - getWebsiteTraffic
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: employee_reviews
+  category: alternative signals
+  rest:
+  - getEmployeeReviews
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: product_reviews
+  category: alternative signals
+  rest:
+  - getProductReviews
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: job_posts
+  category: alternative signals
+  rest:
+  - getJobPosts
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+- tool: social_posts
+  category: alternative signals
+  rest:
+  - getSocialPosts
+  binding: by name and documented semantics (live MCP inputSchema gated)
+  confidence: high
+mcp_only:
+- tool: account_status
+  reason: Plan tier and credit balance; no public REST operation in the OpenAPI (the CLI "akta-pro account" command
+    implies an endpoint but the spec does not publish it).
+- tool: list_filters
+  reason: Docs rate-limits page names /api/v1/filters/list/ but the published OpenAPI has no such operation.
+- tool: get_filter_values
+  reason: Docs rate-limits page names /api/v1/filters/options/ but the published OpenAPI has no such operation.
+- tool: news_detail
+  reason: Full article bodies by ID; no REST operation in the published OpenAPI returns article bodies by ID.
+- tool: news_types
+  reason: Static taxonomy (77 tag codes); published as a docs reference page (https://docs.akta.pro/news-types),
+    not a REST operation.
+rest_only:
+- operation: createCompanyAdditionRequest
+  method: POST
+  path: /v1/company/addition-requests
+- operation: getRequestStatus
+  method: GET
+  path: /v1/status/{request_id}
+- operation: translateQuery
+  method: POST
+  path: /v1/list/filter-builder/
+coverage:
+  mcp_tools: 17
+  tools_bound: 12
+  mcp_only: 5
+  rest_operations: 14
+  rest_bound: 11
+  rest_only: 3

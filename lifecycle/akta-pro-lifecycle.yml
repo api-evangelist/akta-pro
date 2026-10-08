@@ -1,0 +1,27 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/changelog.md; https://docs.akta.pro/getting-started/overview.md; openapi/akta-pro-openapi.yml
+versioning:
+  scheme: URL path version
+  mechanism: All operations live under /api/v1/ on https://api.akta.pro; info.version 1.0.0 in the published OpenAPI.
+    No header or date-based versioning is documented.
+  example: https://api.akta.pro/api/v1/company/search/?query=canva
+  docs: https://docs.akta.pro/getting-started/overview
+deprecation:
+  policy_url: null
+  changelog: https://docs.akta.pro/changelog
+  sunset_header: null
+  notes: 'No deprecation or sunset policy is published. The only breaking change on record is announced in the July
+    9, 2026 changelog entry: "the industry parameter now expects resolved codes instead of free text, so use the
+    new free Industry Search API to resolve them."'
+sla:
+  url: null
+  notes: No SLA or uptime commitment is published on the docs site.
+status_page: null
+status_page_note: 'No status page found: nothing on docs.akta.pro links one and https://akta.pro/status answered
+  the crawler with a Cloudflare challenge (403), not a status page.'
+changelog:
+  url: https://docs.akta.pro/changelog
+  dated: true
+  artifact: changelog/akta-pro-changelog.yml
+deprecated_operations: []

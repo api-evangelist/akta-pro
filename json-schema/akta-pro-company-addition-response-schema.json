@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/akta-pro/main/json-schema/akta-pro-company-addition-response-schema.json",
+  "title": "CompanyAdditionResponse",
+  "x-generated": "2026-10-07",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/akta-pro-openapi.yml#/components/schemas/CompanyAdditionResponse",
+  "type": "object",
+  "properties": {
+    "already_exists": {
+      "description": "true if the company is already in the database, in which case no addition request is created. false if a new addition request was created.",
+      "type": "boolean"
+    },
+    "company": {
+      "description": "The existing company's details when already_exists is true; otherwise null.",
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExistingCompany"
+        }
+      ]
+    },
+    "request_id": {
+      "description": "Unique identifier for the addition request, in UUID format. Use this to check request status or match webhook notifications. null when the company already exists.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "description": "Current status of the addition request at submission time. Typically pending. null when the company already exists.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "domain": {
+      "description": "The resolved domain for the submitted company.",
+      "type": "string"
+    },
+    "credits_consumed": {
+      "description": "Credits consumed by the request. This endpoint is free and always returns 0.00.",
+      "type": "number"
+    }
+  },
+  "$defs": {
+    "ExistingCompany": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "Unique identifier for the company. Pass this as the company parameter in downstream APIs.",
+          "type": "string"
+        },
+        "website": {
+          "description": "Primary website of the company.",
+          "type": "string"
+        },
+        "domain": {
+          "description": "Resolved domain of the company.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Company name.",
+          "type": "string"
+        },
+        "legal_name": {
+          "description": "Legal or registered name of the company.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

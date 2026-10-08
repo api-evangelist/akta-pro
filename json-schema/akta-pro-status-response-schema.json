@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/akta-pro/main/json-schema/akta-pro-status-response-schema.json",
+  "title": "StatusResponse",
+  "x-generated": "2026-10-07",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/akta-pro-openapi.yml#/components/schemas/StatusResponse",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "description": "Unique identifier of the request being tracked.",
+      "type": "string"
+    },
+    "request_type": {
+      "description": "The type of request. Example: company_addition",
+      "type": "string"
+    },
+    "status": {
+      "description": "Current status of the request. Possible values: pending, in_progress, completed, failed.",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "Timestamp when the request was created, in ISO 8601 format.",
+      "type": "string"
+    },
+    "updated_at": {
+      "description": "Timestamp when the request was last updated, in ISO 8601 format.",
+      "type": "string"
+    },
+    "detail": {
+      "$ref": "#/$defs/StatusDetail"
+    }
+  },
+  "$defs": {
+    "StatusDetail": {
+      "description": "Request-type-specific details for company_addition request.",
+      "type": "object",
+      "properties": {
+        "company_addition_request_id": {
+          "description": "Identifier of the underlying request record.",
+          "type": "string"
+        },
+        "company_name": {
+          "description": "Name of the company submitted for addition.",
+          "type": "string"
+        },
+        "domain": {
+          "description": "Resolved domain of the submitted company.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status of the underlying request. Possible values: pending, in_progress, completed, failed.",
+          "type": "string"
+        },
+        "reason": {
+          "description": "Explanation when the request did not succeed. null unless the request has failed.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company_uuid": {
+          "description": "Akta UUID of the company once it has been added. null until the request is completed.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "description": "Timestamp when the underlying request was created, in ISO 8601 format.",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Timestamp when the underlying request was last updated, in ISO 8601 format.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "provider": "akta-pro",
+  "sources": [
+    "_original/akta-pro-docs-openapi.json",
+    "akta-pro-openapi.yml"
+  ],
+  "outputs": [
+    "akta-pro-company-api-openapi.yml",
+    "akta-pro-list-generation-api-openapi.yml",
+    "akta-pro-news-api-openapi.yml",
+    "akta-pro-reviews-api-openapi.yml",
+    "akta-pro-supporting-apis-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/akta-pro-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "akta-pro-docs-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "akta-pro-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Company' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
+    "tag 'List Generation' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
+    "tag 'News' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
+    "tag 'Reviews' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
+    "tag 'Supporting APIs' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+5 apis, 6 total)"
+  ],
+  "skipped": []
+}

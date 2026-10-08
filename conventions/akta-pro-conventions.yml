@@ -1,0 +1,96 @@
+generated: '2026-10-07'
+method: searched
+source: openapi/akta-pro-openapi.yml; https://docs.akta.pro/getting-started/overview.md; https://docs.akta.pro/getting-started/error-codes.md;
+  https://docs.akta.pro/getting-started/rate-limits.md; https://docs.akta.pro/docs/supporting-apis/company-addition.md;
+  live probe of api.akta.pro 2026-10-07
+description: 'Cross-cutting semantics of the akta.pro REST API (14 operations, all under /api/v1/). The surface
+  is read-mostly: 11 GET reads plus three POSTs, of which two (generateCompanyList, translateQuery) are compute
+  requests with no stored side effect and one (createCompanyAdditionRequest) creates an asynchronous addition request.'
+base_url: https://api.akta.pro/api
+api_style: REST over HTTPS, JSON responses (company_data Markdown variant via MCP/CLI)
+authentication:
+  scheme: apiKey in header x-api-key
+  key_prefix: wk_
+  docs: https://docs.akta.pro/getting-started/overview
+  detail: See authentication/akta-pro-authentication.yml
+idempotency:
+  coverage: none
+  supported: false
+  mechanism: null
+  applies_to: []
+  docs: null
+  detail: 'No Idempotency-Key header or replay-protection mechanism is documented or declared in the contract. The
+    one stateful write, POST /v1/company/addition-requests, is naturally de-duplicated at the resource level: "If
+    the company already exists in the database, the API tells you so immediately and returns its details so no addition
+    request is created" - but that is not a client-controlled idempotency key.'
+dry_run_mode:
+  coverage: na
+  detail: The two compute POSTs (list generation, filter builder) have no side effects; the Filter Builder is itself
+    the rehearsal step the docs recommend before List Generation ("gives you a reviewable, reusable filter set you
+    can inspect, tweak, or cache before running"). No dry-run flag exists for the addition request.
+reversibility:
+  coverage: none
+  grade: none
+  write_surfaces:
+  - operation: createCompanyAdditionRequest
+    reversal: null
+    window: null
+    docs: https://docs.akta.pro/docs/supporting-apis/company-addition
+    note: No cancel or withdraw operation for an addition request is published; the request runs pending -> in_progress
+      -> completed|failed and can only be observed via getRequestStatus or a webhook.
+  - operation: generateCompanyList
+    reversal: na
+    note: Compute only; nothing to reverse. Credits consumed are not documented as refundable.
+  - operation: translateQuery
+    reversal: na
+    note: Compute only; nothing to reverse.
+pagination:
+  style: offset
+  request_params:
+    limit: page size (getNews, reviews, jobs, posts)
+    offset: items to skip
+  response_fields:
+    status: '"success"'
+    data: array or object
+    count: number of items/sections returned
+    credits_consumed: float, billed credits for the call
+  docs: https://docs.akta.pro/api-reference/news-signals
+field_expansion:
+  supported: true
+  mechanism: 'sections query parameter on companyEnrichment selects billable sections; docs: "There is no "all"
+    - choose explicitly."'
+  docs: https://docs.akta.pro/docs/company-data/overview
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: x-request-id
+  description: Observed on a live unauthenticated response from api.akta.pro on 2026-10-07 (probed); not documented.
+versioning:
+  scheme: URL path /api/v1/
+  docs: https://docs.akta.pro/changelog
+  detail: See lifecycle/akta-pro-lifecycle.yml
+error_envelope:
+  shape:
+    status: string
+    message: string
+  media_type: application/json
+  docs: https://docs.akta.pro/getting-started/error-codes
+  detail: See errors/akta-pro-error-codes.yml; 403 is also used for "endpoint not included in your plan".
+rate_limits:
+  signaling: 429 Rate Limited; exponential backoff (start 1s, max 60s) prescribed; no rate-limit headers documented
+  docs: https://docs.akta.pro/getting-started/rate-limits
+  detail: See rate-limits/akta-pro-rate-limits.yml
+async_requests:
+  pattern: POST returns request_id; poll GET /v1/status/{request_id} or configure a webhook
+  statuses:
+  - pending
+  - in_progress
+  - completed
+  - failed
+  docs: https://docs.akta.pro/docs/supporting-apis/request-status-api
+billing_semantics:
+  field: credits_consumed in every response
+  docs: https://docs.akta.pro/getting-started/pricing
+webhooks:
+  documented: true
+  detail: See asyncapi/akta-pro-webhooks.yml; configuration guide link is a 404.

@@ -1,0 +1,993 @@
+generated: '2026-10-07'
+method: searched
+name: akta.pro API rate limits
+source: https://docs.akta.pro/getting-started/rate-limits.md
+published: true
+note: '"Every plan has a global per-minute request limit, and most endpoints also have their own daily or monthly
+  cap." Enterprise: "Enterprise ships with custom rate limits." Rows are copied cell-for-cell from the plan tables;
+  Subscription tiers are 50/100/200/500/1000. "Where both a per-minute and a per-month limit apply to the same endpoint,
+  both are enforced". Company Data limit "Includes the markdown and concise response variants of this endpoint".
+  Filter Builder: "No separate limit is configured for this endpoint beyond the plan''s global per-minute limit."'
+limit_count: 120
+exceeded_status: 429
+headers:
+  documented: []
+  note: No rate-limit response headers (X-RateLimit-*, RateLimit-*, Retry-After) are documented; the error-codes
+    page prescribes exponential backoff on 429 (start 1s, max 60s). An unauthenticated probe showed only x-request-id.
+limits:
+- name: Global rate limit (Pay as you go)
+  limit_text: 25 / minute
+  scope: per-plan global
+  plan: Pay as you go
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: List Filters (Pay as you go)
+  limit_text: 25 / day
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/filters/list/
+  max: 25
+  limit: 25
+  window: 1 day
+- name: Filter Options (Pay as you go)
+  limit_text: 50 / day
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/filters/options/
+  max: 50
+  limit: 50
+  window: 1 day
+- name: Company Search (Pay as you go)
+  limit_text: 100 / day
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/company/search/
+  max: 100
+  limit: 100
+  window: 1 day
+- name: Industry Search (Pay as you go)
+  limit_text: 100 / day
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/industry/search/
+  max: 100
+  limit: 100
+  window: 1 day
+- name: Company Data (Pay as you go)
+  limit_text: 100 / month
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/company/enrichment/
+  max: 100
+  limit: 100
+  window: 1 month
+- name: Company Addition (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/addition-requests/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Job Posts (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/jobs/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Social Posts (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/posts/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Product Reviews (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/product-reviews/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Website Traffic (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/website-traffic/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Employee Reviews (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/employee-reviews/
+  note: Endpoint not included in this plan; requests return 403.
+- name: Headcount Trends (Pay as you go)
+  limit_text: Not available
+  scope: per-plan
+  plan: Pay as you go
+  endpoint: /api/v1/company/headcount-trends/
+  note: Endpoint not included in this plan; requests return 403.
+- name: List Generation (Pay as you go)
+  limit_text: 100 / month
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/list/generate/companies/
+  max: 100
+  limit: 100
+  window: 1 month
+- name: News Signals (Pay as you go)
+  limit_text: 10,000 / month
+  scope: per-endpoint, per account
+  plan: Pay as you go
+  endpoint: /api/v1/news/
+  max: 10000
+  limit: 10000
+  window: 1 month
+- name: Global rate limit (Sub 50)
+  limit_text: 100 / min
+  scope: per-plan global
+  plan: Sub 50
+  max: 100
+  limit: 100
+  window: 1 minute
+  kind: throughput
+- name: Global rate limit (Sub 100)
+  limit_text: 150 / min
+  scope: per-plan global
+  plan: Sub 100
+  max: 150
+  limit: 150
+  window: 1 minute
+  kind: throughput
+- name: Global rate limit (Sub 200)
+  limit_text: 200 / min
+  scope: per-plan global
+  plan: Sub 200
+  max: 200
+  limit: 200
+  window: 1 minute
+  kind: throughput
+- name: Global rate limit (Sub 500)
+  limit_text: 250 / min
+  scope: per-plan global
+  plan: Sub 500
+  max: 250
+  limit: 250
+  window: 1 minute
+  kind: throughput
+- name: Global rate limit (Sub 1000)
+  limit_text: 300 / min
+  scope: per-plan global
+  plan: Sub 1000
+  max: 300
+  limit: 300
+  window: 1 minute
+  kind: throughput
+- name: List Filters (Sub 50)
+  limit_text: 25 / day
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/filters/list/
+  max: 25
+  limit: 25
+  window: 1 day
+- name: List Filters (Sub 100)
+  limit_text: 50 / day
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/filters/list/
+  max: 50
+  limit: 50
+  window: 1 day
+- name: List Filters (Sub 200)
+  limit_text: 100 / day
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/filters/list/
+  max: 100
+  limit: 100
+  window: 1 day
+- name: List Filters (Sub 500)
+  limit_text: 200 / day
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/filters/list/
+  max: 200
+  limit: 200
+  window: 1 day
+- name: List Filters (Sub 1000)
+  limit_text: 400 / day
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/filters/list/
+  max: 400
+  limit: 400
+  window: 1 day
+- name: Filter Options (Sub 50)
+  limit_text: 50 / day
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/filters/options/
+  max: 50
+  limit: 50
+  window: 1 day
+- name: Filter Options (Sub 100)
+  limit_text: 100 / day
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/filters/options/
+  max: 100
+  limit: 100
+  window: 1 day
+- name: Filter Options (Sub 200)
+  limit_text: 200 / day
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/filters/options/
+  max: 200
+  limit: 200
+  window: 1 day
+- name: Filter Options (Sub 500)
+  limit_text: 400 / day
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/filters/options/
+  max: 400
+  limit: 400
+  window: 1 day
+- name: Filter Options (Sub 1000)
+  limit_text: 800 / day
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/filters/options/
+  max: 800
+  limit: 800
+  window: 1 day
+- name: Company Search (Sub 50)
+  limit_text: 400 / day
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/search/
+  max: 400
+  limit: 400
+  window: 1 day
+- name: Company Search (Sub 100)
+  limit_text: 800 / day
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/search/
+  max: 800
+  limit: 800
+  window: 1 day
+- name: Company Search (Sub 200)
+  limit_text: 1,500 / day
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/search/
+  max: 1500
+  limit: 1500
+  window: 1 day
+- name: Company Search (Sub 500)
+  limit_text: 2,000 / day
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/search/
+  max: 2000
+  limit: 2000
+  window: 1 day
+- name: Company Search (Sub 1000)
+  limit_text: 3,000 / day
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/search/
+  max: 3000
+  limit: 3000
+  window: 1 day
+- name: Industry Search (Sub 50)
+  limit_text: 400 / day
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/industry/search/
+  max: 400
+  limit: 400
+  window: 1 day
+- name: Industry Search (Sub 100)
+  limit_text: 800 / day
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/industry/search/
+  max: 800
+  limit: 800
+  window: 1 day
+- name: Industry Search (Sub 200)
+  limit_text: 1,500 / day
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/industry/search/
+  max: 1500
+  limit: 1500
+  window: 1 day
+- name: Industry Search (Sub 500)
+  limit_text: 2,000 / day
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/industry/search/
+  max: 2000
+  limit: 2000
+  window: 1 day
+- name: Industry Search (Sub 1000)
+  limit_text: 3,000 / day
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/industry/search/
+  max: 3000
+  limit: 3000
+  window: 1 day
+- name: Company Data (Sub 50)
+  limit_text: 750 / mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/enrichment/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Company Data (Sub 100)
+  limit_text: 1,500 / mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/enrichment/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Company Data (Sub 200)
+  limit_text: 3,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/enrichment/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Company Data (Sub 500)
+  limit_text: 7,500 / mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/enrichment/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Company Data (Sub 1000)
+  limit_text: 15,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/enrichment/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Company Addition (Sub 50)
+  limit_text: 100 / mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/addition-requests/
+  max: 100
+  limit: 100
+  window: 1 month
+- name: Company Addition (Sub 100)
+  limit_text: 150 / mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/addition-requests/
+  max: 150
+  limit: 150
+  window: 1 month
+- name: Company Addition (Sub 200)
+  limit_text: 200 / mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/addition-requests/
+  max: 200
+  limit: 200
+  window: 1 month
+- name: Company Addition (Sub 500)
+  limit_text: 300 / mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/addition-requests/
+  max: 300
+  limit: 300
+  window: 1 month
+- name: Company Addition (Sub 1000)
+  limit_text: 500 / mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/addition-requests/
+  max: 500
+  limit: 500
+  window: 1 month
+- name: Job Posts (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/jobs/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Job Posts (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/jobs/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Job Posts (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/jobs/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Job Posts (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/jobs/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Job Posts (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/jobs/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Job Posts (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/jobs/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Job Posts (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/jobs/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Job Posts (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/jobs/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Job Posts (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/jobs/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Job Posts (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/jobs/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Social Posts (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/posts/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Social Posts (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/posts/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Social Posts (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/posts/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Social Posts (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/posts/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Social Posts (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/posts/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Social Posts (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/posts/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Social Posts (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/posts/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Social Posts (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/posts/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Social Posts (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/posts/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Social Posts (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/posts/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Product Reviews (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/product-reviews/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Product Reviews (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/product-reviews/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Product Reviews (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/product-reviews/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Product Reviews (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/product-reviews/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Product Reviews (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/product-reviews/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Product Reviews (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/product-reviews/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Product Reviews (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/product-reviews/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Product Reviews (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/product-reviews/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Product Reviews (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/product-reviews/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Product Reviews (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/product-reviews/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Website Traffic (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/website-traffic/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Website Traffic (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/website-traffic/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Website Traffic (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/website-traffic/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Website Traffic (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/website-traffic/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Website Traffic (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/website-traffic/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Website Traffic (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/website-traffic/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Website Traffic (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/website-traffic/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Website Traffic (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/website-traffic/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Website Traffic (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/website-traffic/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Website Traffic (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/website-traffic/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Employee Reviews (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/employee-reviews/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Employee Reviews (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/employee-reviews/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Employee Reviews (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/employee-reviews/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Employee Reviews (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/employee-reviews/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Employee Reviews (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/employee-reviews/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Employee Reviews (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/employee-reviews/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Employee Reviews (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/employee-reviews/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Employee Reviews (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/employee-reviews/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Employee Reviews (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/employee-reviews/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Employee Reviews (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/employee-reviews/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: Headcount Trends (Sub 50)
+  limit_text: 10/min
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/headcount-trends/
+  max: 10
+  limit: 10
+  window: 1 minute
+  kind: throughput
+- name: Headcount Trends (Sub 50)
+  limit_text: 750/mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/company/headcount-trends/
+  max: 750
+  limit: 750
+  window: 1 month
+- name: Headcount Trends (Sub 100)
+  limit_text: 15/min
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/headcount-trends/
+  max: 15
+  limit: 15
+  window: 1 minute
+  kind: throughput
+- name: Headcount Trends (Sub 100)
+  limit_text: 1,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/company/headcount-trends/
+  max: 1500
+  limit: 1500
+  window: 1 month
+- name: Headcount Trends (Sub 200)
+  limit_text: 20/min
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/headcount-trends/
+  max: 20
+  limit: 20
+  window: 1 minute
+  kind: throughput
+- name: Headcount Trends (Sub 200)
+  limit_text: 3,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/company/headcount-trends/
+  max: 3000
+  limit: 3000
+  window: 1 month
+- name: Headcount Trends (Sub 500)
+  limit_text: 25/min
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/headcount-trends/
+  max: 25
+  limit: 25
+  window: 1 minute
+  kind: throughput
+- name: Headcount Trends (Sub 500)
+  limit_text: 7,500/mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/company/headcount-trends/
+  max: 7500
+  limit: 7500
+  window: 1 month
+- name: Headcount Trends (Sub 1000)
+  limit_text: 30/min
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/headcount-trends/
+  max: 30
+  limit: 30
+  window: 1 minute
+  kind: throughput
+- name: Headcount Trends (Sub 1000)
+  limit_text: 15,000/mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/company/headcount-trends/
+  max: 15000
+  limit: 15000
+  window: 1 month
+- name: List Generation (Sub 50)
+  limit_text: 100 / mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/list/generate/companies/
+  max: 100
+  limit: 100
+  window: 1 month
+- name: List Generation (Sub 100)
+  limit_text: 150 / mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/list/generate/companies/
+  max: 150
+  limit: 150
+  window: 1 month
+- name: List Generation (Sub 200)
+  limit_text: 200 / mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/list/generate/companies/
+  max: 200
+  limit: 200
+  window: 1 month
+- name: List Generation (Sub 500)
+  limit_text: 300 / mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/list/generate/companies/
+  max: 300
+  limit: 300
+  window: 1 month
+- name: List Generation (Sub 1000)
+  limit_text: 400 / mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/list/generate/companies/
+  max: 400
+  limit: 400
+  window: 1 month
+- name: News Signals (Sub 50)
+  limit_text: 25,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 50
+  endpoint: /api/v1/news/
+  max: 25000
+  limit: 25000
+  window: 1 month
+- name: News Signals (Sub 100)
+  limit_text: 50,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 100
+  endpoint: /api/v1/news/
+  max: 50000
+  limit: 50000
+  window: 1 month
+- name: News Signals (Sub 200)
+  limit_text: 100,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 200
+  endpoint: /api/v1/news/
+  max: 100000
+  limit: 100000
+  window: 1 month
+- name: News Signals (Sub 500)
+  limit_text: 250,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 500
+  endpoint: /api/v1/news/
+  max: 250000
+  limit: 250000
+  window: 1 month
+- name: News Signals (Sub 1000)
+  limit_text: 500,000 / mo
+  scope: per-endpoint, per account
+  plan: Sub 1000
+  endpoint: /api/v1/news/
+  max: 500000
+  limit: 500000
+  window: 1 month

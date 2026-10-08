@@ -1,0 +1,1 @@
+{"resource":"https://mcp.mintlify.com","authorization_servers":["https://mcp.mintlify.com"],"bearer_methods_supported":["header"],"scopes_supported":["docs:read","docs:write","nav:write","config:write","session:write","deployment:read","deployment:write","members:read","members:write","billing:read","integrations:write","analytics:read","offline_access"]}

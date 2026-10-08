@@ -1,0 +1,32 @@
+generated: '2026-10-07'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/akta-pro-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 14
+  statuses_declared: 3
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad request — invalid parameters.
+  operations: 7
+  media_types:
+  - application/json
+  schema: Error
+- status: 401
+  title: Unauthorized
+  description: Unauthorized — missing or invalid API key.
+  operations: 12
+  media_types: []
+  schema: null
+- status: 403
+  title: Forbidden
+  description: Forbidden — insufficient access for requested section.
+  operations: 1
+  media_types: []
+  schema: null

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/akta-pro/main/json-schema/akta-pro-product-review-schema.json",
+  "title": "ProductReview",
+  "x-generated": "2026-10-07",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/akta-pro-openapi.yml#/components/schemas/ProductReview",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the product. Use this value in the products query parameter to fetch reviews."
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Display name of the product."
+    },
+    "main_category": {
+      "type": "string",
+      "description": "Primary category of the product."
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "All categories the product belongs to."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the product."
+    },
+    "rating": {
+      "type": "object",
+      "description": "Average rating per review provider. Keys are provider identifiers (e.g. g2) and values are floats. Present only when products is provided."
+    },
+    "star_distribution": {
+      "type": "object",
+      "description": "Distribution of star ratings per review provider. Keys are provider identifiers (e.g. g2), values are objects keyed by star value (1 through 5) with integer counts. Present only when products is provided."
+    },
+    "pros_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Aggregated pros mentioned across reviews. Present only when products is provided."
+    },
+    "cons_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Aggregated cons mentioned across reviews. Present only when products is provided."
+    },
+    "pricing": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Pricing information for the product. Present only when products is provided."
+    },
+    "reviews": {
+      "type": "object",
+      "description": "Reviews container. Present only when products is provided.",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProductReviewItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total number of reviews available for the product across all providers."
+        },
+        "total_by_provider": {
+          "type": "object",
+          "description": "Total review count broken down by provider."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "ProductReviewItem": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "integer",
+          "description": "Unique identifier for the review."
+        },
+        "review_title": {
+          "type": "string",
+          "description": "Title of the review as submitted by the reviewer."
+        },
+        "review_content": {
+          "type": "string",
+          "description": "Full text of the review."
+        },
+        "review_question_answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "answer": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Structured question-and-answer pairs from the review."
+        },
+        "review_rating": {
+          "type": "number",
+          "format": "float",
+          "description": "Rating given by the reviewer."
+        },
+        "publish_date": {
+          "type": "string",
+          "description": "Publication date of the review in ISO 8601 format."
+        },
+        "reviewer_company_size": {
+          "type": "string",
+          "description": "Reviewer's company size band."
+        },
+        "review_link": {
+          "type": "string",
+          "description": "Link to the original review on the provider's site."
+        },
+        "provider": {
+          "type": "string",
+          "description": "Review provider identifier."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+generated: '2026-10-07'
+method: searched
+name: akta.pro API plans and pricing
+source: https://docs.akta.pro/getting-started/pricing.md
+sources:
+- https://docs.akta.pro/getting-started/pricing.md
+- https://akta.pro/pricing
+audience: developer-api
+pricing_basis: per-call
+published: true
+currency: USD
+plan_count: 3
+delivery:
+  delivery: managed
+note: '"akta.pro''s APIs are priced in credits. Each API consumes a set number of credits per call". The docs page
+  quotes the cost per credit by plan; the marketing page https://akta.pro/pricing (edge-challenged to a plain GET,
+  read through a browser fetch) adds the monthly figures recorded under web_pricing.'
+plans:
+- name: Pay as you go
+  price_text: $0.05
+  price: 0.05
+  billing: per credit, top-up
+  description: Pay as you go is a top-up, credit-based plan with a single set of limits.
+  features:
+  - News Signals
+  - Company Data (excluding Funding Detail and M&A and Investment)
+  - Company Search / Industry Search
+  - List Generation
+  limits:
+  - Global rate limit 25 / minute
+  - Top-up credits are valid for 12 months from the date of purchase
+  - Alternative data endpoints and Company Addition are not included on Pay as you go
+- name: Subscription
+  price_text: $0.04
+  price: 0.04
+  billing: per credit, monthly plan
+  description: 'Subscription plans are tiered by monthly usage volume: 50, 100, 200, 500, and 1000.'
+  features:
+  - All Pay as you go APIs
+  - Alternative Signals (Headcount Trends, Web Traffic, Job Posting, Social Posts, Employee Reviews, Product Reviews)
+  - Company Addition API
+  - Funding Detail and M&A and Investment sections (limited access)
+  limits:
+  - Global rate limit 100 / min to 300 / min by tier
+  - Monthly plan credits expire at the end of each billing cycle and do not roll over
+- name: Enterprise
+  price_text: Custom
+  description: Custom cost per credit; custom rate limits based on committed usage, endpoint requirements, and deployment
+    needs.
+  features:
+  - Complete access to Funding Detail and M&A and Investment
+  - Custom throughput, custom endpoints, de-duplicated feeds, committed-volume pricing
+  limits:
+  - Custom rate limits
+credit_consumption:
+  News Signals: 0.1 per API call, 0.01 per news article
+  Company Data: 'priced per section: Firmographic 2, Business Model 2, Company Assessment 2, Trust Signal 0.5, Company
+    Hierarchy 0.5, Digital Presence 0.5, Financial Estimate 0.5, Location 0.5, Management Profile 1, Product Offering
+    2, Strategic Signal 1.5, Customer Profile 1, Industry 1, Technology 2, Funding Detail 3, M&A and Investment
+    5'
+  List Generation: Base cost per API call 1.5; additional 2.5 if using query instead of filters; 0.2 per company
+    returned; plus per-section enrichment cost x companies returned
+  Filter Builder: 2.5 credits per run
+  Headcount Trends: '2.5'
+  Web Traffic: '1.5'
+  Job Posting: 4 credits for 10 records
+  Social Posts: 1 credit for 10 records
+  Employee Reviews: 1.5 credits for 50 records
+  Product Reviews: 1.5 credits for 50 records, 0.5 credits when called without products
+web_pricing:
+  source: https://akta.pro/pricing
+  fetched: '2026-10-07'
+  quotes:
+    Pay as you go: Only pay for what you use No monthly subscription
+    Subscription: $ 50 / month 1,250 credits/ mo
+    Enterprise: Starting at $2,000 / month +billed annually
+  license_types:
+    Pay as you go: Personal use only
+    Subscription: Limited commercial
+    Enterprise: Full commercial

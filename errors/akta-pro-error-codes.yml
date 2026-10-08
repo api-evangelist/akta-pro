@@ -1,0 +1,57 @@
+generated: '2026-10-07'
+method: searched
+source: https://docs.akta.pro/getting-started/error-codes.md
+format: HTTP status codes with a JSON {status, message} body (components.schemas.Error in openapi/akta-pro-openapi.yml);
+  no RFC 9457 problem+json
+envelope:
+  media_type: application/json
+  shape:
+    status: string
+    message: string
+notes:
+- 'Docs: "Not available" means the endpoint is not included in that plan and requests to it return a 403.'
+- 'Subscription/Enterprise company_data sections (funding_detail, mna_and_investment) do not error on lower tiers:
+  they are silently skipped and the Markdown notes what was dropped.'
+- 'Live probe 2026-10-07: GET https://api.akta.pro/api/v1/company/search/?query=canva without a key returned 401
+  application/json; responses carry an x-request-id header.'
+problems:
+- status: 200
+  title: Success
+  retry: 'No'
+  remediation: Parse response
+- status: 400
+  title: Bad Request
+  retry: 'No'
+  remediation: Fix request parameters
+- status: 401
+  title: Unauthorized
+  retry: Once
+  remediation: Re-authenticate, then retry
+- status: 403
+  title: Forbidden
+  retry: 'No'
+  remediation: Check API access level
+- status: 404
+  title: Not Found
+  retry: 'No'
+  remediation: Verify endpoint URL and resource ID
+- status: 422
+  title: Unprocessable Entity
+  retry: 'No'
+  remediation: Validate input data types, formats, and value limits, then correct and resend
+- status: 429
+  title: Rate Limited
+  retry: 'Yes'
+  remediation: Exponential backoff (start 1s, max 60s)
+- status: 500
+  title: Server Error
+  retry: 'Yes'
+  remediation: Retry with backoff (max 3 retries)
+- status: 502
+  title: Service Unavailable
+  retry: 'Yes'
+  remediation: Retry with backoff (max 5 retries)
+- status: 503
+  title: Service Unavailable
+  retry: 'Yes'
+  remediation: Retry with backoff (max 5 retries)
