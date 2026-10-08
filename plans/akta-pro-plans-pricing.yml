@@ -78,3 +78,28 @@ web_pricing:
     Pay as you go: Personal use only
     Subscription: Limited commercial
     Enterprise: Full commercial
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Pay as you go
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Subscription
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
