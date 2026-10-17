@@ -1,8 +1,7 @@
 {
   "provider": "akta-pro",
   "sources": [
-    "_original/akta-pro-docs-openapi.json",
-    "akta-pro-openapi.yml"
+    "_original/akta-pro-docs-openapi.json"
   ],
   "outputs": [
     "akta-pro-company-api-openapi.yml",
@@ -11,21 +10,21 @@
     "akta-pro-reviews-api-openapi.yml",
     "akta-pro-supporting-apis-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/akta-pro-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "akta-pro-docs-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "akta-pro-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tag 'Company' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
-    "tag 'List Generation' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
-    "tag 'News' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
-    "tag 'Reviews' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
-    "tag 'Supporting APIs' spans 2 source specs (akta-pro-docs-openapi.json, akta-pro-openapi.yml): per-path servers applied",
-    "apis.yml register: written (+5 apis, 6 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "_original/akta-pro-openapi.yml: archived document superseded by a larger archived document",
+    "akta-pro-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akta-pro-list-generation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akta-pro-news-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akta-pro-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akta-pro-supporting-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

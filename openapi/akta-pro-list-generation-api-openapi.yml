@@ -1,10 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Akta Pro List Generation API
+  title: Akta.pro List Generation API
+  description: 'Akta provides APIs for company intelligence and news monitoring:
+
+
+    1.'
   version: 1.0.0
   contact:
     url: https://akta.pro
-  description: 'Operations tagged List Generation across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.akta.pro/api
   description: Production server
@@ -41,9 +44,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       summary: Generate company list
       x-summary-source: derived
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/list/filter-builder/:
     post:
       description: Converts natural language queries into structured filter conditions for the List Generation API.
@@ -67,9 +67,6 @@ paths:
                 $ref: '#/components/schemas/TranslateQueryResponse'
       summary: Translate query
       x-summary-source: derived
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
 components:
   schemas:
     TranslateQueryRequest:
@@ -117,6 +114,13 @@ components:
         offset:
           type: integer
           description: 'Number of results to skip for pagination. Default: 0'
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
     TranslateQueryResponse:
       type: object
       properties:
@@ -147,13 +151,6 @@ components:
           type: number
           format: float
           description: Credits consumed. Returns 0 when no enrichment sections requested.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
   securitySchemes:
     xApiKeyAuth:
       type: apiKey
@@ -163,6 +160,3 @@ components:
 externalDocs:
   description: Official Akta.pro API Documentation
   url: https://docs.akta.pro
-x-refined-from:
-- akta-pro-docs-openapi.json
-- akta-pro-openapi.yml

@@ -1,10 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Akta Pro Company API
+  title: Akta.pro Company API
+  description: 'Akta provides APIs for company intelligence and news monitoring:
+
+
+    1.'
   version: 1.0.0
   contact:
     url: https://akta.pro
-  description: 'Operations tagged Company across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.akta.pro/api
   description: Production server
@@ -52,9 +55,6 @@ paths:
           description: Bad request — missing or malformed query parameter.
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/enrichment:
     get:
       tags:
@@ -105,9 +105,6 @@ paths:
           description: Unauthorized — missing or invalid API key.
         '403':
           description: Forbidden — insufficient access for requested section.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/industry/search:
     get:
       tags:
@@ -157,9 +154,6 @@ paths:
           description: Bad request — missing or malformed query parameter.
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/headcount-trends:
     get:
       tags:
@@ -214,9 +208,6 @@ paths:
                     format: float
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/jobs:
     get:
       tags:
@@ -272,9 +263,6 @@ paths:
                     format: float
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/posts:
     get:
       tags:
@@ -326,9 +314,6 @@ paths:
                     format: float
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/website-traffic:
     get:
       tags:
@@ -369,9 +354,6 @@ paths:
                     format: float
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
   /v1/company/addition-requests:
     post:
       tags:
@@ -411,11 +393,20 @@ paths:
           description: Bad request — invalid parameters.
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
 components:
   schemas:
+    CompanyAdditionRequest:
+      required:
+      - company_name
+      - website
+      type: object
+      properties:
+        company_name:
+          description: 'Name of the company to add. Example: solios'
+          type: string
+        website:
+          description: 'Primary website URL of the company. Used to disambiguate and resolve the company. Example: https://www.soleosenergy.com/'
+          type: string
     IndustrySearchResult:
       type: object
       properties:
@@ -429,36 +420,6 @@ components:
           type: number
           format: float
           description: Similarity score between the query and the matched industry, ranging from 0 to 1. Higher values indicate a closer match.
-    CompanyAdditionRequest:
-      required:
-      - company_name
-      - website
-      type: object
-      properties:
-        company_name:
-          description: 'Name of the company to add. Example: solios'
-          type: string
-        website:
-          description: 'Primary website URL of the company. Used to disambiguate and resolve the company. Example: https://www.soleosenergy.com/'
-          type: string
-    ExistingCompany:
-      type: object
-      properties:
-        uuid:
-          description: Unique identifier for the company. Pass this as the company parameter in downstream APIs.
-          type: string
-        website:
-          description: Primary website of the company.
-          type: string
-        domain:
-          description: Resolved domain of the company.
-          type: string
-        name:
-          description: Company name.
-          type: string
-        legal_name:
-          description: Legal or registered name of the company.
-          type: string
     CompanySearchResult:
       type: object
       properties:
@@ -484,6 +445,24 @@ components:
           - delisted
           - unknown
           description: Public market status.
+    ExistingCompany:
+      type: object
+      properties:
+        uuid:
+          description: Unique identifier for the company. Pass this as the company parameter in downstream APIs.
+          type: string
+        website:
+          description: Primary website of the company.
+          type: string
+        domain:
+          description: Resolved domain of the company.
+          type: string
+        name:
+          description: Company name.
+          type: string
+        legal_name:
+          description: Legal or registered name of the company.
+          type: string
     CompanyAdditionResponse:
       type: object
       properties:
@@ -519,6 +498,3 @@ components:
 externalDocs:
   description: Official Akta.pro API Documentation
   url: https://docs.akta.pro
-x-refined-from:
-- akta-pro-docs-openapi.json
-- akta-pro-openapi.yml

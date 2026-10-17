@@ -1,10 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Akta Pro Supporting APIs API
+  title: Akta.pro Supporting APIs API
+  description: 'Akta provides APIs for company intelligence and news monitoring:
+
+
+    1.'
   version: 1.0.0
   contact:
     url: https://akta.pro
-  description: 'Operations tagged Supporting APIs across 2 of this provider''s published API definitions: akta-pro-docs-openapi.json, akta-pro-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.akta.pro/api
   description: Production server
@@ -51,9 +54,6 @@ paths:
           description: Bad request — invalid request ID.
         '401':
           description: Unauthorized — missing or invalid API key.
-    servers:
-    - url: https://api.akta.pro/api
-      description: Production server
 components:
   schemas:
     StatusResponse:
@@ -117,6 +117,3 @@ components:
 externalDocs:
   description: Official Akta.pro API Documentation
   url: https://docs.akta.pro
-x-refined-from:
-- akta-pro-docs-openapi.json
-- akta-pro-openapi.yml
